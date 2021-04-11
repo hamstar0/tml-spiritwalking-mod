@@ -31,5 +31,23 @@ namespace SpiritWalking {
 				Main.instance.LoadNPC( NPCID.DungeonSpirit );
 			}
 		}
+
+
+		////////////////
+
+		public override void UpdateMusic( ref int music, ref MusicPriority priority ) {
+			var plr = Main.LocalPlayer;
+
+			if( Main.myPlayer == -1 || Main.gameMenu || !plr.active ) {
+				return;
+			}
+
+			var myplayer = plr.GetModPlayer<SpiritWalkingPlayer>();
+
+			if( myplayer.IsSpiritWalking ) {
+				music = this.GetSoundSlot( SoundType.Music, "Sounds/Music/MattsBlues" );
+				priority = MusicPriority.BossHigh;
+			}
+		}
 	}
 }

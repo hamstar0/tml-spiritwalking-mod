@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
@@ -6,7 +7,7 @@ using SpiritWalking.Items;
 
 
 namespace SpiritWalking {
-	public class SpiritWalkingPlayer : ModPlayer {
+	public partial class SpiritWalkingPlayer : ModPlayer {
 		internal bool IsSpiritWalking = false;
 
 
@@ -30,6 +31,17 @@ namespace SpiritWalking {
 
 		public override void PostUpdateBuffs() {
 			SpiritWalkLogic.UpdateBuffs( this, this.IsSpiritWalking );
+		}
+
+
+		////////////////
+
+		public override void ModifyDrawLayers( List<PlayerLayer> layers ) {
+			if( this.IsSpiritWalking ) {
+				layers.ForEach( l => l.visible = false );
+
+				layers.Add( new PlayerLayer( this.mod.Name, "Spirit Walker", this.DrawSpirit ) );
+			}
 		}
 	}
 }

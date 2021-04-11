@@ -1,3 +1,5 @@
+using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 
@@ -24,6 +26,10 @@ namespace SpiritWalking {
 
 		public override void Load() {
 			this.NecrotisMod = ModLoader.GetMod( "Necrotis" );
+
+			if( Main.netMode != NetmodeID.Server && !Main.dedServ ) {
+				Main.instance.LoadNPC( NPCID.DungeonSpirit );
+			}
 		}
 	}
 }

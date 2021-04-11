@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 
 
-namespace SpiritWalking.Items {
+namespace SpiritWalking.Logic {
 	internal partial class SpiritWalkLogic {
 		public static bool HasEnergy( Player player, float energyCost, out string status ) {
 			var config = SpiritWalkingConfig.Instance;
@@ -34,27 +34,32 @@ namespace SpiritWalking.Items {
 		}
 
 
-		////
-		
-		public static bool ActivateIf( Player player ) {
+		////////////////
+
+		public static void ActivateIf( Player player ) {
 			var config = SpiritWalkingConfig.Instance;
 			var myplayer = player.GetModPlayer<SpiritWalkingPlayer>();
 			float nrgAmtDraw = config.InitialSpiritWalkEnergyCost;
 
+			if( myplayer.IsSpiritWalking ) {
+				return;
+			}
+
 			if( !SpiritWalkLogic.HasEnergy(player, nrgAmtDraw, out string status) ) {
 				Main.NewText( status, Color.Yellow );
-				return false;
+				return;
 			}
 
 			SpiritWalkLogic.ApplyEnergyDraw( player, nrgAmtDraw );
 
 			myplayer.IsSpiritWalking = true;
-			return true;
 		}
 
 
 		public static void DeactivateIf( Player player ) {
-			
+			var myplayer = player.GetModPlayer<SpiritWalkingPlayer>();
+
+			myplayer.IsSpiritWalking = false;
 		}
 	}
 }

@@ -1,0 +1,14 @@
+using Terraria;
+using Terraria.ModLoader;
+using SpiritWalking.Logic;
+
+
+namespace SpiritWalking {
+	class SpiritWalkingItem : GlobalItem {
+		public override void HoldStyle( Item item, Player player ) {
+			var myplayer = player.GetModPlayer<SpiritWalkingPlayer>();
+
+			SpiritWalkLogic.UpdateItemHoldStyle( myplayer, item, myplayer.IsSpiritWalking );
+		}
+	}
+}

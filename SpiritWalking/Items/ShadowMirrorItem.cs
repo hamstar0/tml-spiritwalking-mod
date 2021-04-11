@@ -1,17 +1,11 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using SpiritWalking.Logic;
 
 
 namespace SpiritWalking.Items {
 	public class ShadowMirrorItem : ModItem {
-		public static void Activate( Player player ) {
-		}
-
-
-
-		////////////////
-
 		public override void SetStaticDefaults() {
 			this.DisplayName.SetDefault( "Shadow Mirror" );
 			this.Tooltip.SetDefault(

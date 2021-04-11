@@ -38,8 +38,8 @@ namespace SpiritWalking {
 		public float InitialSpiritWalkEnergyCost { get; set; } = 20f;
 
 
-		[Range( 0f, 400f )]
-		[DefaultValue( 20f )]
+		[Range( 0f, 100f )]
+		[DefaultValue( 1f / 60f )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
 		public float PerTickSpiritWalkEnergyCost { get; set; } = 1f / 60f;
 	}

@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
+using SpiritWalking.Logic;
 using SpiritWalking.Items;
 
 
@@ -25,6 +26,10 @@ namespace SpiritWalking {
 
 		public override void PreUpdate() {
 			SpiritWalkLogic.Update( this, this.IsSpiritWalking );
+		}
+
+		public override void PostUpdateBuffs() {
+			SpiritWalkLogic.UpdateBuffs( this, this.IsSpiritWalking );
 		}
 	}
 }

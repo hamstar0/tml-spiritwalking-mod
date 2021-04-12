@@ -21,7 +21,7 @@ namespace SpiritWalking {
 
 			Main.spriteBatch.Draw(
 				texture: tex,
-				position: player.Center - Main.screenPosition,
+				position: player.Center - Main.screenPosition + new Vector2(0, 32),
 				color: Color.White,
 				sourceRectangle: new Rectangle( 0, texHeight * this.SpiritFrame, texWidth, texHeight ),
 				rotation: player.fullRotation,

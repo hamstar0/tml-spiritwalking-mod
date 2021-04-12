@@ -33,6 +33,14 @@ namespace SpiritWalking {
 			SpiritWalkLogic.UpdateBuffs( this, this.IsSpiritWalking );
 		}
 
+		public override void PostItemCheck() {
+			if( this.IsSpiritWalking ) {
+				if( this.player.mount.Active ) {
+					this.player.mount.Dismount( this.player );
+				}
+			}
+		}
+
 
 		////////////////
 
@@ -41,6 +49,29 @@ namespace SpiritWalking {
 				layers.ForEach( l => l.visible = false );
 
 				layers.Add( new PlayerLayer( this.mod.Name, "Spirit Walker", this.DrawSpirit ) );
+			}
+		}
+
+		public override void FrameEffects() {
+			if( this.IsSpiritWalking ) {
+				this.player.head = 0;
+				this.player.body = 0;
+				this.player.legs = 0;
+
+				for( int i = 0; i < 1; i++ ) {
+					int idx = Dust.NewDust(
+						Position: this.player.MountedCenter + new Vector2(-16, -16),
+						Width: 32,
+						Height: 32,
+						Type: 180,
+						SpeedX: Main.rand.NextFloat() - 0.5f,
+						SpeedY: Main.rand.NextFloat() - 0.5f,
+						Alpha: 0,
+						newColor: default( Color ),
+						Scale: 1.4f
+					);
+					Main.dust[idx].noGravity = true;
+				}
 			}
 		}
 	}

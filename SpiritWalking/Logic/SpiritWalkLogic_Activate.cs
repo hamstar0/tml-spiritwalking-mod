@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 
 
 namespace SpiritWalking.Logic {
@@ -36,7 +37,7 @@ namespace SpiritWalking.Logic {
 
 		////////////////
 
-		public static void ActivateIf( Player player ) {
+		public static void ActivateIf( Player player, bool sync ) {
 			var config = SpiritWalkingConfig.Instance;
 			var myplayer = player.GetModPlayer<SpiritWalkingPlayer>();
 			float nrgAmtDraw = config.InitialSpiritWalkEnergyCost;
@@ -52,12 +53,24 @@ namespace SpiritWalking.Logic {
 
 			SpiritWalkLogic.ApplyEnergyDraw( player, nrgAmtDraw );
 
+			if( sync ) {
+				if( Main.netMode == NetmodeID.MultiplayerClient ) {
+					SpiritWalkStateProtocol.Broadcast( myplayer );
+				}
+			}
+
 			myplayer.IsSpiritWalking = true;
 		}
 
 
-		public static void DeactivateIf( Player player ) {
+		public static void DeactivateIf( Player player, bool sync ) {
 			var myplayer = player.GetModPlayer<SpiritWalkingPlayer>();
+
+			if( sync ) {
+				if( Main.netMode == NetmodeID.MultiplayerClient ) {
+					SpiritWalkStateProtocol.Broadcast( myplayer );
+				}
+			}
 
 			myplayer.IsSpiritWalking = false;
 		}

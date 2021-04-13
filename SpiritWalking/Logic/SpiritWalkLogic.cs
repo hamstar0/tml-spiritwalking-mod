@@ -39,7 +39,7 @@ namespace SpiritWalking.Logic {
 			if( isStillSW ) {
 				SpiritWalkLogic.UpdateSpiritWalk( myplayer.player );
 			} else {
-				SpiritWalkLogic.DeactivateIf( myplayer.player );
+				SpiritWalkLogic.DeactivateIf( myplayer.player, true );
 			}
 		}
 

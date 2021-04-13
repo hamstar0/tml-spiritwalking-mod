@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Graphics.Effects;
 using Terraria.ModLoader;
 using SpiritWalking.Logic;
 using SpiritWalking.Items;
@@ -72,6 +73,18 @@ namespace SpiritWalking {
 					);
 					Main.dust[idx].noGravity = true;
 				}
+			}
+		}
+
+		public override void UpdateBiomeVisuals() {
+			bool isMLFilterActive = Filters.Scene["Vortex"].IsActive();
+
+			if( this.IsSpiritWalking ) {
+				if( !isMLFilterActive ) {
+					Filters.Scene.Activate( "Vortex" );
+				}
+			} else if( isMLFilterActive ) {
+				Filters.Scene["Vortex"].Deactivate( new object[0] );
 			}
 		}
 	}

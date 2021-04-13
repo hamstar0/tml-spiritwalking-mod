@@ -31,7 +31,7 @@ namespace SpiritWalking.Items {
 
 		public override bool UseItem( Player player ) {
 			if( player.itemAnimation == 1 ) {
-				SpiritWalkLogic.ActivateIf( player );
+				SpiritWalkLogic.ActivateIf( player, true );
 			}
 			return base.UseItem( player );
 		}

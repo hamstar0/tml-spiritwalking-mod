@@ -94,5 +94,10 @@ namespace SpiritWalking {
 		public override void ProcessTriggers( TriggersSet triggersSet ) {
 			SpiritWalkLogic.UpdateTriggers( this, triggersSet, this.IsSpiritWalking );
 		}
+
+
+		public override void PostUpdateRunSpeeds() {
+			SpiritWalkLogic.UpdateRunSpeeds( this, this.IsSpiritWalking );
+		}
 	}
 }

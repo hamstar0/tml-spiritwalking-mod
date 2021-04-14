@@ -68,6 +68,8 @@ namespace SpiritWalking.Logic {
 			);
 			SpiritWalkLogic.RocketLoop.Play();
 
+			myplayer.FlightDirection = SpiritWalkLogic.DefaultFlightHeading;
+
 			if( sync ) {
 				if( Main.netMode == NetmodeID.MultiplayerClient ) {
 					SpiritWalkStateProtocol.Broadcast( myplayer );

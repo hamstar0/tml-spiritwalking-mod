@@ -1,4 +1,5 @@
 using Terraria;
+using Terraria.GameInput;
 using HamstarHelpers.Helpers.Debug;
 using HamstarHelpers.Services.Timers;
 
@@ -18,6 +19,12 @@ namespace SpiritWalking.Logic {
 
 		////
 
+		public static void UpdateRunSpeedsForSpiritWalk( SpiritWalkingPlayer myplayer ) {
+			myplayer.player.maxRunSpeed = 0;
+			myplayer.player.accRunSpeed = 0;
+			myplayer.player.runAcceleration = 0;
+		}
+
 		private static void UpdateBuffsForSpiritWalk( SpiritWalkingPlayer myplayer ) {
 			myplayer.player.noItems = true;
 			myplayer.player.immune = true;
@@ -29,6 +36,23 @@ namespace SpiritWalking.Logic {
 			item.holdStyle = 0;
 
 			Timers.RunNow( () => item.holdStyle = oldHoldStyle );
+		}
+
+		public static void UpdateTriggersForSpiritWalk( SpiritWalkingPlayer myplayer, TriggersSet triggersSet ) {
+			bool down = triggersSet.KeyStatus["Down"];
+			bool up = triggersSet.KeyStatus["Up"];
+			bool left = triggersSet.KeyStatus["Left"];
+			bool right = triggersSet.KeyStatus["Right"];
+			
+			if( down || up || left || right ) {
+				SpiritWalkLogic.SteerFlight( myplayer, down, up, left, right );
+			}
+
+			triggersSet.Jump = false;
+			//triggersSet.Down = false;
+			//triggersSet.Up = false;
+			//triggersSet.Left = false;
+			//triggersSet.Right = false;
 		}
 	}
 }

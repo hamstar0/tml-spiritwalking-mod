@@ -1,6 +1,7 @@
 using Terraria;
-using HamstarHelpers.Helpers.Debug;
 using Terraria.GameInput;
+using HamstarHelpers.Helpers.Debug;
+
 
 namespace SpiritWalking.Logic {
 	internal partial class SpiritWalkLogic {
@@ -23,6 +24,12 @@ namespace SpiritWalking.Logic {
 
 		////
 
+		public static void UpdateRunSpeeds( SpiritWalkingPlayer myplayer, bool isSpiritWalking ) {
+			if( isSpiritWalking ) {
+				SpiritWalkLogic.UpdateRunSpeedsForSpiritWalk( myplayer );
+			}
+		}
+
 		public static void UpdateBuffs( SpiritWalkingPlayer myplayer, bool isSpiritWalking ) {
 			if( isSpiritWalking ) {
 				SpiritWalkLogic.UpdateBuffsForSpiritWalk( myplayer );
@@ -32,6 +39,12 @@ namespace SpiritWalking.Logic {
 		public static void UpdateItemHoldStyle( SpiritWalkingPlayer myplayer, Item item, bool isSpiritWalking ) {
 			if( isSpiritWalking ) {
 				SpiritWalkLogic.UpdateItemHoldStyleForSpiritWalk( myplayer, item );
+			}
+		}
+
+		public static void UpdateTriggers( SpiritWalkingPlayer myplayer, TriggersSet triggersSet, bool isSpiritWalking ) {
+			if( isSpiritWalking ) {
+				SpiritWalkLogic.UpdateTriggersForSpiritWalk( myplayer, triggersSet );
 			}
 		}
 	}

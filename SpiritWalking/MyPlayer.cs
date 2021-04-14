@@ -15,7 +15,7 @@ namespace SpiritWalking {
 		internal bool IsSpiritWalking = false;
 
 
-		internal Vector2 FlightDirection = SpiritWalkLogic.DefaultFlightHeading;
+		internal Vector2 FlightDirection = SpiritWalkFlightLogic.DefaultFlightHeading;
 
 		internal float CurrentFlightScale = 1f;
 

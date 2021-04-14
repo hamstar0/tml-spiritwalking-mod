@@ -1,17 +1,10 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using HamstarHelpers.Services.OverlaySounds;
 
 
 namespace SpiritWalking.Logic {
 	internal partial class SpiritWalkLogic {
-		private static OverlaySound RocketLoop = null;
-
-
-
-		////////////////
-
 		public static void ActivateIf( Player player, bool sync ) {
 			var config = SpiritWalkingConfig.Instance;
 			var myplayer = player.GetModPlayer<SpiritWalkingPlayer>();

@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.GameInput;
 using Terraria.Graphics.Effects;
 using Terraria.ModLoader;
+using HamstarHelpers.Helpers.Debug;
 using SpiritWalking.Logic;
 using SpiritWalking.Items;
 
@@ -10,6 +12,7 @@ using SpiritWalking.Items;
 namespace SpiritWalking {
 	public partial class SpiritWalkingPlayer : ModPlayer {
 		internal bool IsSpiritWalking = false;
+		internal Vector2 FlightDirection = SpiritWalkLogic.DefaultFlightHeading;
 
 
 
@@ -86,6 +89,10 @@ namespace SpiritWalking {
 			} else if( isMLFilterActive ) {
 				Filters.Scene["Vortex"].Deactivate( new object[0] );
 			}
+		}
+
+		public override void ProcessTriggers( TriggersSet triggersSet ) {
+			SpiritWalkLogic.UpdateTriggers( this, triggersSet, this.IsSpiritWalking );
 		}
 	}
 }

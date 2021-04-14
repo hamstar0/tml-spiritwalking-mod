@@ -89,6 +89,8 @@ namespace SpiritWalking.Logic {
 				}
 			}
 
+			myplayer.FlightDirection = SpiritWalkLogic.DefaultFlightHeading;
+
 			myplayer.IsSpiritWalking = false;
 		}
 	}

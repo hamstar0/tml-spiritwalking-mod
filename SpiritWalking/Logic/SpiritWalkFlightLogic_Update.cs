@@ -4,23 +4,23 @@ using HamstarHelpers.Helpers.Debug;
 
 
 namespace SpiritWalking.Logic {
-	internal partial class SpiritWalkLogic {
+	internal partial class SpiritWalkFlightLogic {
 		public static readonly float DefaultFlightSpeed = 5f;
-		public static readonly Vector2 DefaultFlightHeading = new Vector2( 0f, -SpiritWalkLogic.DefaultFlightSpeed );
+		public static readonly Vector2 DefaultFlightHeading = new Vector2( 0f, -SpiritWalkFlightLogic.DefaultFlightSpeed );
 
 
 
 		////////////////
 
-		private static void UpdateSpiritWalkFlight( SpiritWalkingPlayer myplayer ) {
+		public static void Update( SpiritWalkingPlayer myplayer ) {
 			float accel = 0.1f;
 
-			SpiritWalkLogic.UpdateSpiritWalkFlightSpeedChanges( myplayer );
+			SpiritWalkFlightLogic.UpdateSpeedChanges( myplayer );
 
 			myplayer.player.velocity = Vector2.Lerp( myplayer.player.velocity, myplayer.FlightDirection, accel );
 		}
 
-		private static void UpdateSpiritWalkFlightSpeedChanges( SpiritWalkingPlayer myplayer ) {
+		private static void UpdateSpeedChanges( SpiritWalkingPlayer myplayer ) {
 			if( myplayer.FlightBurstCooldown > 0 ) {
 				myplayer.FlightBurstCooldown--;
 			}
@@ -30,7 +30,7 @@ namespace SpiritWalking.Logic {
 			} else if( myplayer.FlightBurstDuration == 1 ) {
 				myplayer.FlightBurstDuration = 0;
 
-				SpiritWalkLogic.RevertFlightSpeedScale( myplayer );
+				SpiritWalkFlightLogic.RevertFlightSpeedScale( myplayer );
 			}
 		}
 	}

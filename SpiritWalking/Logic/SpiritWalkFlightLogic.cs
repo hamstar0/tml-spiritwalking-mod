@@ -1,17 +1,18 @@
 using Terraria;
 using Terraria.ID;
 using HamstarHelpers.Helpers.Debug;
+using HamstarHelpers.Services.OverlaySounds;
 
 
 namespace SpiritWalking.Logic {
-	internal partial class SpiritWalkLogic {
+	internal partial class SpiritWalkFlightLogic {
 		public static void SteerFlight( SpiritWalkingPlayer myplayer, bool down, bool up, bool left, bool right ) {
 			float rot = 0.03f;
 
 			if( down ) {
-				SpiritWalkLogic.ApplyFlightSpeedScaleDownIf( myplayer );
+				SpiritWalkFlightLogic.ApplyFlightSpeedScaleDownIf( myplayer );
 			} else if( up ) {
-				SpiritWalkLogic.ApplyFlightSpeedScaleUpIf( myplayer );
+				SpiritWalkFlightLogic.ApplyFlightSpeedScaleUpIf( myplayer );
 			}
 
 			if( left ) {
@@ -30,7 +31,7 @@ namespace SpiritWalking.Logic {
 
 			Main.PlaySound( SoundID.DoubleJump );
 
-			SpiritWalkLogic.ApplyFlightSpeedScaleChange( myplayer, 0.5f );
+			SpiritWalkFlightLogic.ApplyFlightSpeedScaleChange( myplayer, 0.5f );
 		}
 
 		public static void ApplyFlightSpeedScaleUpIf( SpiritWalkingPlayer myplayer ) {
@@ -40,7 +41,7 @@ namespace SpiritWalking.Logic {
 
 			Main.PlaySound( SoundID.Grass );
 
-			SpiritWalkLogic.ApplyFlightSpeedScaleChange( myplayer, 2f );
+			SpiritWalkFlightLogic.ApplyFlightSpeedScaleChange( myplayer, 2f );
 		}
 
 		public static void ApplyFlightSpeedScaleChange( SpiritWalkingPlayer myplayer, float scale ) {

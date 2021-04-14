@@ -14,7 +14,7 @@ namespace SpiritWalking.Logic {
 
 			myplayer.player.gravity = 0f;
 
-			SpiritWalkLogic.UpdateSpiritWalkFlight( myplayer );
+			SpiritWalkFlightLogic.Update( myplayer );
 		}
 
 		////
@@ -45,7 +45,7 @@ namespace SpiritWalking.Logic {
 			bool right = triggersSet.KeyStatus["Right"];
 			
 			if( down || up || left || right ) {
-				SpiritWalkLogic.SteerFlight( myplayer, down, up, left, right );
+				SpiritWalkFlightLogic.SteerFlight( myplayer, down, up, left, right );
 			}
 
 			triggersSet.Jump = false;

@@ -77,7 +77,7 @@ namespace SpiritWalking {
 						Position: this.player.MountedCenter + new Vector2(-16, -16),
 						Width: 32,
 						Height: 32,
-						Type: DustID.DungeonSpirit,
+						Type: 180,//DustID.DungeonSpirit,
 						SpeedX: Main.rand.NextFloat() - 0.5f,
 						SpeedY: Main.rand.NextFloat() - 0.5f,
 						Alpha: 0,

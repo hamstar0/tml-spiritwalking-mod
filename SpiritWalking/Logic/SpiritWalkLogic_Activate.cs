@@ -12,38 +12,6 @@ namespace SpiritWalking.Logic {
 
 		////////////////
 
-		public static bool HasEnergy( Player player, float energyCost, out string status ) {
-			var config = SpiritWalkingConfig.Instance;
-			bool swUsesAnima = config.SpiritWalkUsesAnimaIfNecrotisAvailable
-				&& SpiritWalkingMod.Instance.NecrotisMod != null;
-
-			if( swUsesAnima ) {
-				return HasEnergy_Necrotis( player, energyCost, out status );
-			} else {
-				if( player.statMana < energyCost ) {
-					status = "Not enough mana.";
-					return false;
-				}
-			}
-
-			status = "Success.";
-			return true;
-		}
-
-		private static bool HasEnergy_Necrotis( Player player, float energyCost, out string status ) {
-			float energyAsPercent = energyCost / 100f;
-
-			if( Necrotis.NecrotisAPI.GetAnimaPercentOfPlayer(player) < energyAsPercent ) {
-				status = "Not enough anima.";
-				return false;
-			}
-			status = "Success.";
-			return true;
-		}
-
-
-		////////////////
-
 		public static void ActivateIf( Player player, bool sync ) {
 			var config = SpiritWalkingConfig.Instance;
 			var myplayer = player.GetModPlayer<SpiritWalkingPlayer>();
@@ -60,15 +28,7 @@ namespace SpiritWalking.Logic {
 
 			SpiritWalkLogic.ApplyEnergyDraw( player, nrgAmtDraw );
 
-			SpiritWalkLogic.RocketLoop = OverlaySound.Create(
-				sourceMod: SpiritWalkingMod.Instance,
-				soundPath: "Sounds/rocket",
-				fadeTicks: 0,
-				customCondition: () => (0.2f, 0f, 0f, false)
-			);
-			SpiritWalkLogic.RocketLoop.Play();
-
-			myplayer.FlightDirection = SpiritWalkLogic.DefaultFlightHeading;
+			SpiritWalkFlightLogic.Activate( player );
 
 			if( sync ) {
 				if( Main.netMode == NetmodeID.MultiplayerClient ) {
@@ -83,15 +43,13 @@ namespace SpiritWalking.Logic {
 		public static void DeactivateIf( Player player, bool sync ) {
 			var myplayer = player.GetModPlayer<SpiritWalkingPlayer>();
 
-			SpiritWalkLogic.RocketLoop.StopImmediately();
+			SpiritWalkFlightLogic.Deactivate( player );
 
 			if( sync ) {
 				if( Main.netMode == NetmodeID.MultiplayerClient ) {
 					SpiritWalkStateProtocol.Broadcast( myplayer );
 				}
 			}
-
-			myplayer.FlightDirection = SpiritWalkLogic.DefaultFlightHeading;
 
 			myplayer.IsSpiritWalking = false;
 		}

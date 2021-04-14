@@ -58,56 +58,30 @@ namespace SpiritWalking {
 
 		////////////////
 
-		public override void ModifyDrawLayers( List<PlayerLayer> layers ) {
-			if( this.IsSpiritWalking ) {
-				layers.ForEach( l => l.visible = false );
-
-				layers.Add( new PlayerLayer( this.mod.Name, "Spirit Walker", this.DrawSpirit ) );
-			}
+		public override void PostUpdateRunSpeeds() {
+			SpiritWalkLogic.UpdateRunSpeeds( this, this.IsSpiritWalking );
 		}
 
-		public override void FrameEffects() {
-			if( this.IsSpiritWalking ) {
-				this.player.head = 0;
-				this.player.body = 0;
-				this.player.legs = 0;
 
-				for( int i = 0; i < 1; i++ ) {
-					int idx = Dust.NewDust(
-						Position: this.player.MountedCenter + new Vector2(-16, -16),
-						Width: 32,
-						Height: 32,
-						Type: 180,//DustID.DungeonSpirit,
-						SpeedX: Main.rand.NextFloat() - 0.5f,
-						SpeedY: Main.rand.NextFloat() - 0.5f,
-						Alpha: 0,
-						newColor: default( Color ),
-						Scale: 1.4f
-					);
-					Main.dust[idx].noGravity = true;
-				}
-			}
-		}
-
-		public override void UpdateBiomeVisuals() {
-			bool isMLFilterActive = Filters.Scene["Vortex"].IsActive();
-
-			if( this.IsSpiritWalking ) {
-				if( !isMLFilterActive ) {
-					Filters.Scene.Activate( "Vortex" );
-				}
-			} else if( isMLFilterActive ) {
-				Filters.Scene["Vortex"].Deactivate( new object[0] );
-			}
-		}
+		////////////////
 
 		public override void ProcessTriggers( TriggersSet triggersSet ) {
 			SpiritWalkLogic.UpdateTriggers( this, triggersSet, this.IsSpiritWalking );
 		}
 
 
-		public override void PostUpdateRunSpeeds() {
-			SpiritWalkLogic.UpdateRunSpeeds( this, this.IsSpiritWalking );
+		////////////////
+
+		public override void ModifyDrawLayers( List<PlayerLayer> layers ) {
+			SpiritWalkFxLogic.ModifyDrawLayers( layers, this.IsSpiritWalking );
+		}
+
+		public override void FrameEffects() {
+			SpiritWalkFxLogic.FrameEffects( this, this.IsSpiritWalking );
+		}
+
+		public override void UpdateBiomeVisuals() {
+			SpiritWalkFxLogic.UpdateBiomeVisuals( this, this.IsSpiritWalking );
 		}
 	}
 }

@@ -1,8 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using HamstarHelpers.Helpers.Debug;
-using HamstarHelpers.Services.OverlaySounds;
-
+using Microsoft.Xna.Framework;
 
 namespace SpiritWalking.Logic {
 	internal partial class SpiritWalkFlightLogic {
@@ -22,6 +21,7 @@ namespace SpiritWalking.Logic {
 			}
 		}
 
+
 		////////////////
 
 		public static void ApplyFlightSpeedScaleDownIf( SpiritWalkingPlayer myplayer ) {
@@ -32,6 +32,12 @@ namespace SpiritWalking.Logic {
 			Main.PlaySound( SoundID.DoubleJump );
 
 			SpiritWalkFlightLogic.ApplyFlightSpeedScaleChange( myplayer, 0.5f );
+
+			SpiritWalkFxLogic.EmitParticles(
+				myplayer.player.MountedCenter,
+				Vector2.Normalize( myplayer.player.velocity ) * 12,
+				16
+			);
 		}
 
 		public static void ApplyFlightSpeedScaleUpIf( SpiritWalkingPlayer myplayer ) {
@@ -42,7 +48,15 @@ namespace SpiritWalking.Logic {
 			Main.PlaySound( SoundID.Grass );
 
 			SpiritWalkFlightLogic.ApplyFlightSpeedScaleChange( myplayer, 2f );
+
+			SpiritWalkFxLogic.EmitParticles(
+				myplayer.player.MountedCenter,
+				Vector2.Normalize( -myplayer.player.velocity ) * 12,
+				16
+			);
 		}
+
+		////
 
 		public static void ApplyFlightSpeedScaleChange( SpiritWalkingPlayer myplayer, float scale ) {
 			myplayer.FlightDirection *= scale;
@@ -53,7 +67,7 @@ namespace SpiritWalking.Logic {
 			myplayer.FlightBurstCooldown = config.Get<int>( nameof(config.SpiritWalkSpeedChangeCooldown) );
 		}
 
-		////
+		////////////////
 
 		public static void RevertFlightSpeedScale( SpiritWalkingPlayer myplayer ) {
 			myplayer.FlightBurstDuration = 0;

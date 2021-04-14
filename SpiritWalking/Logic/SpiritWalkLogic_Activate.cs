@@ -1,10 +1,17 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using HamstarHelpers.Services.OverlaySounds;
 
 
 namespace SpiritWalking.Logic {
 	internal partial class SpiritWalkLogic {
+		private static OverlaySound RocketLoop = null;
+
+
+
+		////////////////
+
 		public static bool HasEnergy( Player player, float energyCost, out string status ) {
 			var config = SpiritWalkingConfig.Instance;
 			bool swUsesAnima = config.SpiritWalkUsesAnimaIfNecrotisAvailable
@@ -53,6 +60,14 @@ namespace SpiritWalking.Logic {
 
 			SpiritWalkLogic.ApplyEnergyDraw( player, nrgAmtDraw );
 
+			SpiritWalkLogic.RocketLoop = OverlaySound.Create(
+				sourceMod: SpiritWalkingMod.Instance,
+				soundPath: "Sounds/rocket",
+				fadeTicks: 0,
+				customCondition: () => (0.2f, 0f, 0f, false)
+			);
+			SpiritWalkLogic.RocketLoop.Play();
+
 			if( sync ) {
 				if( Main.netMode == NetmodeID.MultiplayerClient ) {
 					SpiritWalkStateProtocol.Broadcast( myplayer );
@@ -65,6 +80,8 @@ namespace SpiritWalking.Logic {
 
 		public static void DeactivateIf( Player player, bool sync ) {
 			var myplayer = player.GetModPlayer<SpiritWalkingPlayer>();
+
+			SpiritWalkLogic.RocketLoop.StopImmediately();
 
 			if( sync ) {
 				if( Main.netMode == NetmodeID.MultiplayerClient ) {

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 using Terraria.GameInput;
 using Terraria.Graphics.Effects;
 using Terraria.ModLoader;
@@ -12,7 +13,16 @@ using SpiritWalking.Items;
 namespace SpiritWalking {
 	public partial class SpiritWalkingPlayer : ModPlayer {
 		internal bool IsSpiritWalking = false;
+
+
 		internal Vector2 FlightDirection = SpiritWalkLogic.DefaultFlightHeading;
+
+		internal float CurrentFlightScale = 1f;
+
+
+		internal int FlightBurstCooldown = 0;
+
+		internal int FlightBurstDuration = 0;
 
 
 
@@ -67,7 +77,7 @@ namespace SpiritWalking {
 						Position: this.player.MountedCenter + new Vector2(-16, -16),
 						Width: 32,
 						Height: 32,
-						Type: 180,
+						Type: DustID.DungeonSpirit,
 						SpeedX: Main.rand.NextFloat() - 0.5f,
 						SpeedY: Main.rand.NextFloat() - 0.5f,
 						Alpha: 0,

@@ -21,20 +21,5 @@ namespace SpiritWalking.Logic {
 
 			Necrotis.NecrotisAPI.SubtractAnimaPercentFromPlayer( player, energyAsPercent, false );
 		}
-
-
-		////////////////
-
-		public static void SteerFlight( SpiritWalkingPlayer myplayer, bool down, bool up, bool left, bool right ) {
-			float rot = 0.03f;
-
-			if( down ) {
-			} else if( up ) {
-			} else if( left ) {
-				myplayer.FlightDirection = myplayer.FlightDirection.RotatedBy( -rot );
-			} else if( right ) {
-				myplayer.FlightDirection = myplayer.FlightDirection.RotatedBy( rot );
-			}
-		}
 	}
 }

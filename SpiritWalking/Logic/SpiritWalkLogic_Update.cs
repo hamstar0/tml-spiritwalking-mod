@@ -1,6 +1,8 @@
 using Terraria;
 using Terraria.GameInput;
+using Terraria.ModLoader;
 using HamstarHelpers.Helpers.Debug;
+using SpiritWalking.Mounts;
 
 
 namespace SpiritWalking.Logic {
@@ -20,7 +22,10 @@ namespace SpiritWalking.Logic {
 			} else {
 				SpiritWalkLogic.DeactivateIf( myplayer.player, true );
 			}
+
+			SpiritWalkLogic.UpdateMountState( myplayer.player, isStillSW );
 		}
+
 
 		////
 
@@ -32,7 +37,18 @@ namespace SpiritWalking.Logic {
 
 		public static void UpdateBuffs( SpiritWalkingPlayer myplayer, bool isSpiritWalking ) {
 			if( isSpiritWalking ) {
-				SpiritWalkLogic.UpdateBuffsForSpiritWalk( myplayer );
+				SpiritWalkLogic.UpdateFlagsForSpiritWalk( myplayer );
+			}
+		}
+
+		public static void UpdateMountState( Player player, bool isSpiritWalking ) {
+			if( isSpiritWalking ) {
+				//player.AddBuff( ModContent.BuffType<SpiritModeMountBuff>(), 3 );
+				SpiritWalkLogic.UpdateMountStateForSpiritWalk( player );
+			} else {
+				if( player.mount.Active && player.mount.Type == ModContent.MountType<SpiritModeMount>() ) {
+					player.mount.Dismount( player );
+				}
 			}
 		}
 

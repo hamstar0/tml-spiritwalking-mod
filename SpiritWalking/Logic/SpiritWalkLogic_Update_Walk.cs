@@ -1,7 +1,9 @@
 using Terraria;
 using Terraria.GameInput;
+using Terraria.ModLoader;
 using HamstarHelpers.Helpers.Debug;
 using HamstarHelpers.Services.Timers;
+using SpiritWalking.Mounts;
 
 
 namespace SpiritWalking.Logic {
@@ -25,7 +27,17 @@ namespace SpiritWalking.Logic {
 			myplayer.player.runAcceleration = 0;
 		}
 
-		private static void UpdateBuffsForSpiritWalk( SpiritWalkingPlayer myplayer ) {
+		public static void UpdateMountStateForSpiritWalk( Player player ) {
+			if( player.mount.Active && player.mount.Type != ModContent.MountType<SpiritModeMount>() ) {
+				player.mount.Dismount( player );
+			}
+
+			if( !player.mount.Active ) {
+				player.mount.SetMount( ModContent.MountType<SpiritModeMount>(), player );
+			}
+		}
+
+		private static void UpdateFlagsForSpiritWalk( SpiritWalkingPlayer myplayer ) {
 			myplayer.player.noItems = true;
 			myplayer.player.immune = true;
 			//myplayer.player.stoned = true;

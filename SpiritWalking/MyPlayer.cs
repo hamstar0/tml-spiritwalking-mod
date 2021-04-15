@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.GameInput;
-using Terraria.Graphics.Effects;
 using Terraria.ModLoader;
 using HamstarHelpers.Helpers.Debug;
 using SpiritWalking.Logic;
@@ -45,14 +44,6 @@ namespace SpiritWalking {
 
 		public override void PostUpdateBuffs() {
 			SpiritWalkLogic.UpdateBuffs( this, this.IsSpiritWalking );
-		}
-
-		public override void PostItemCheck() {
-			if( this.IsSpiritWalking ) {
-				if( this.player.mount.Active ) {
-					this.player.mount.Dismount( this.player );
-				}
-			}
 		}
 
 

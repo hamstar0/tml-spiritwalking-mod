@@ -13,11 +13,14 @@ namespace SpiritWalking.Logic {
 		////////////////
 
 		public static void Update( SpiritWalkingPlayer myplayer ) {
-			float accel = 0.1f;
-
 			SpiritWalkFlightLogic.UpdateSpeedChanges( myplayer );
 
-			myplayer.player.velocity = Vector2.Lerp( myplayer.player.velocity, myplayer.FlightDirection, accel );
+			if( myplayer.FlightProjectile?.active == true ) {
+				myplayer.player.Center = myplayer.FlightProjectile.Center;
+				myplayer.player.velocity = default;
+			}
+			//float accel = 0.1f;
+			//myplayer.player.velocity = Vector2.Lerp( myplayer.player.velocity, myplayer.FlightDirection, accel );
 		}
 
 		private static void UpdateSpeedChanges( SpiritWalkingPlayer myplayer ) {

@@ -1,6 +1,8 @@
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 using HamstarHelpers.Services.OverlaySounds;
+using SpiritWalking.Projectiles;
 
 
 namespace SpiritWalking.Logic {
@@ -24,6 +26,16 @@ namespace SpiritWalking.Logic {
 			SpiritWalkFlightLogic.RocketLoop.Play();
 
 			myplayer.FlightDirection = SpiritWalkFlightLogic.DefaultFlightHeading;
+
+			int projWho = Projectile.NewProjectile(
+				position: player.Center,
+				velocity: SpiritWalkFlightLogic.DefaultFlightHeading,
+				Type: ModContent.ProjectileType<SpiritBallProjectile>(),
+				Damage: 0,
+				KnockBack: 0f,
+				Owner: player.whoAmI
+			);
+			myplayer.FlightProjectile = Main.projectile[ projWho ];
 		}
 
 
@@ -33,6 +45,9 @@ namespace SpiritWalking.Logic {
 			SpiritWalkFlightLogic.RocketLoop.StopImmediately();
 
 			myplayer.FlightDirection = SpiritWalkFlightLogic.DefaultFlightHeading;
+
+			myplayer.FlightProjectile.Kill();
+			myplayer.FlightProjectile = null;
 		}
 	}
 }

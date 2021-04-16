@@ -9,7 +9,7 @@ using SpiritWalking.Logic;
 
 namespace SpiritWalking.Projectiles {
 	class SpiritBallProjectile : ModProjectile {
-		public override string Texture => "Terraria/NPC_" + NPCID.DungeonSpirit;
+		public override string Texture => "Terraria/NPC_"+NPCID.DungeonSpirit;
 
 
 
@@ -41,6 +41,10 @@ namespace SpiritWalking.Projectiles {
 				return true;
 			}
 
+			Player plr = Main.player[ this.projectile.owner ];
+			SpiritWalkFlightLogic.ApplySpiritWalkCollisionFriction( plr );
+			SpiritWalkFxLogic.ApplySpiritWalkCollisionFriction( plr );
+
 			/*bool velocityChanged = false;
 
 			if( this.projectile.velocity.X != oldVelocity.X && Math.Abs(oldVelocity.X) > 1f ) {
@@ -53,8 +57,6 @@ namespace SpiritWalking.Projectiles {
 			}
 
 			if( velocityChanged ) {
-				Player plr = Main.player[ this.projectile.owner ];
-				var myplayer = plr.GetModPlayer<SpiritWalkingPlayer>();
 				float length = this.projectile.velocity.Length();
 
 				myplayer.FlightDirection = Vector2.Normalize( this.projectile.velocity );

@@ -44,6 +44,12 @@ namespace SpiritWalking {
 		public float PerTickSpiritWalkEnergyCost { get; set; } = 1f / 60f;
 
 
+		[Range( 0f, 100f )]
+		[DefaultValue( 2f / 60f )]
+		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
+		public float PerTickSpiritWalkFrictionAddedEnergyCost { get; set; } = 2f / 60f;
+
+
 		[Range( 0, 60*60 )]
 		[DefaultValue( 60 )]
 		public int SpiritWalkSpeedChangeTickDuration { get; set; } = 60;

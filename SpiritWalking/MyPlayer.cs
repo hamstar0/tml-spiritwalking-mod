@@ -37,45 +37,5 @@ namespace SpiritWalking {
 				Main.NewText( "Mirror use interrupted.", Color.Yellow );
 			}
 		}
-
-
-		////////////////
-
-		public override void PreUpdate() {
-			SpiritWalkLogic.Update( this, this.IsSpiritWalking );
-		}
-
-		public override void PostUpdateBuffs() {
-			SpiritWalkLogic.UpdateBuffs( this, this.IsSpiritWalking );
-		}
-
-
-		////////////////
-
-		public override void PostUpdateRunSpeeds() {
-			SpiritWalkLogic.UpdateRunSpeeds( this, this.IsSpiritWalking );
-		}
-
-
-		////////////////
-
-		public override void ProcessTriggers( TriggersSet triggersSet ) {
-			SpiritWalkLogic.UpdateTriggers( this, triggersSet, this.IsSpiritWalking );
-		}
-
-
-		////////////////
-
-		public override void ModifyDrawLayers( List<PlayerLayer> layers ) {
-			SpiritWalkFxLogic.ModifyDrawLayers( layers, this.IsSpiritWalking );
-		}
-
-		public override void FrameEffects() {
-			SpiritWalkFxLogic.FrameEffects( this, this.IsSpiritWalking );
-		}
-
-		public override void UpdateBiomeVisuals() {
-			SpiritWalkFxLogic.UpdateBiomeVisuals( this, this.IsSpiritWalking );
-		}
 	}
 }

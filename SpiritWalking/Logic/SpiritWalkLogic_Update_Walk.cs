@@ -51,11 +51,9 @@ namespace SpiritWalking.Logic {
 				SpiritWalkFlightLogic.SteerFlight( myplayer, down, up, left, right );
 			}
 
+			triggersSet.QuickMount = false;
+			triggersSet.Grapple = false;
 			triggersSet.Jump = false;
-			//triggersSet.Down = false;
-			//triggersSet.Up = false;
-			//triggersSet.Left = false;
-			//triggersSet.Right = false;
 		}
 	}
 }

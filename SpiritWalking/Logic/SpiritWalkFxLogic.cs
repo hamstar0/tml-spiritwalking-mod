@@ -4,11 +4,44 @@ using Terraria.ID;
 using Terraria.Graphics.Effects;
 using Terraria.ModLoader;
 using HamstarHelpers.Helpers.Debug;
+using HamstarHelpers.Services.OverlaySounds;
 
 
 namespace SpiritWalking.Logic {
 	internal partial class SpiritWalkFxLogic {
-		public static void ModifyDrawLayers( List<PlayerLayer> layers, bool isSpiritWalking ) {
+		private static OverlaySound FlightSoundLoop = null;
+
+		private static bool CollisionDetected = false;
+		
+
+
+		////////////////
+		
+		private static (float VolumeOverride, float PanOverride, float PitchOverride, bool IsEnded) FlightSoundLoopCondition() {
+			float volume = 0.1f;
+
+			if( SpiritWalkFxLogic.CollisionDetected ) {
+				SpiritWalkFxLogic.CollisionDetected = false;
+
+				volume = 0.3f;
+			}
+
+			return (volume, 0f, 0f, false);
+		}
+
+
+		////////////////
+		
+		public static void ApplySpiritWalkCollisionFriction( Player player ) {
+			SpiritWalkFxLogic.CollisionDetected = true;
+
+			SpiritWalkFxLogic.EmitParticles( player.MountedCenter, default, 2 );
+		}
+
+
+		////////////////
+
+		public static void UpdateDrawLayers( List<PlayerLayer> layers, bool isSpiritWalking ) {
 			if( !isSpiritWalking ) {
 				return;
 			}
@@ -19,7 +52,7 @@ namespace SpiritWalking.Logic {
 		}
 
 
-		public static void FrameEffects( SpiritWalkingPlayer myplayer, bool isSpiritWalking ) {
+		public static void UpdateFrameEffects( SpiritWalkingPlayer myplayer, bool isSpiritWalking ) {
 			if( !isSpiritWalking ) {
 				return;
 			}

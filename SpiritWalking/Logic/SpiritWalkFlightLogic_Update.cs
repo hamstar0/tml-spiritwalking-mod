@@ -23,6 +23,8 @@ namespace SpiritWalking.Logic {
 			//myplayer.player.velocity = Vector2.Lerp( myplayer.player.velocity, myplayer.FlightDirection, accel );
 		}
 
+		////
+
 		private static void UpdateSpeedChanges( SpiritWalkingPlayer myplayer ) {
 			if( myplayer.FlightBurstCooldown > 0 ) {
 				myplayer.FlightBurstCooldown--;

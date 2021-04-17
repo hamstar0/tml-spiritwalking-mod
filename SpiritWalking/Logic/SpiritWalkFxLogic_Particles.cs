@@ -6,7 +6,13 @@ using HamstarHelpers.Helpers.Debug;
 
 namespace SpiritWalking.Logic {
 	internal partial class SpiritWalkFxLogic {
-		public static void EmitParticles( Vector2 position, Vector2 direction, int particles ) {
+		public static void EmitParticles( Vector2 position, Vector2 direction, int particles, bool compensateForHitbox=true ) {
+			if( compensateForHitbox ) {
+				//position.X -= SpiritWalkLogic.PreWalkPlayerWidth / 2;
+				//position.Y -= SpiritWalkLogic.PreWalkPlayerHeight / 2;
+				position.Y -= 24;
+			}
+
 			for( int i = 0; i < particles; i++ ) {
 				int idx = Dust.NewDust(
 					Position: position - new Vector2( 16f, 16f ),

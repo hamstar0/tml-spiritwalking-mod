@@ -1,8 +1,6 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using Terraria.GameInput;
 using Terraria.ModLoader;
 using HamstarHelpers.Helpers.Debug;
 using SpiritWalking.Logic;

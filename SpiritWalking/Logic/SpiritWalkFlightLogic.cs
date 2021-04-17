@@ -17,7 +17,7 @@ namespace SpiritWalking.Logic {
 		////////////////
 
 		public static void SteerFlight( SpiritWalkingPlayer myplayer, bool down, bool up, bool left, bool right ) {
-			float rot = 0.03f;
+			float rotStep = 0.03f;
 
 			if( down ) {
 				SpiritWalkFlightLogic.ApplyFlightSpeedScaleDownIf( myplayer );
@@ -26,9 +26,9 @@ namespace SpiritWalking.Logic {
 			}
 
 			if( left ) {
-				myplayer.FlightDirection = myplayer.FlightDirection.RotatedBy( -rot );
+				myplayer.FlightDirection = myplayer.FlightDirection.RotatedBy( -rotStep );
 			} else if( right ) {
-				myplayer.FlightDirection = myplayer.FlightDirection.RotatedBy( rot );
+				myplayer.FlightDirection = myplayer.FlightDirection.RotatedBy( rotStep );
 			}
 		}
 

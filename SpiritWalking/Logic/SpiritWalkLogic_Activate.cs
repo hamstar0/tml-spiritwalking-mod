@@ -28,19 +28,7 @@ namespace SpiritWalking.Logic {
 			SpiritWalkFlightLogic.Activate( player );
 			SpiritWalkFxLogic.Activate( player );
 
-			//
-
 			SpiritWalkLogic.ActivatePlayerForm( player );
-			if( player.mount.Active ) {
-				player.ClearBuff( player.mount.BuffType );
-				player.mount.Dismount( player );
-			}
-
-			SpiritWalkLogic.PreWalkPlayerWidth = myplayer.player.width;
-			SpiritWalkLogic.PreWalkPlayerHeight = myplayer.player.height;
-
-			myplayer.player.width = 0;
-			myplayer.player.height = 0;
 
 			//
 
@@ -62,10 +50,6 @@ namespace SpiritWalking.Logic {
 			//
 
 			SpiritWalkLogic.DeactivatePlayerForm( player );
-			myplayer.player.width = SpiritWalkLogic.PreWalkPlayerWidth;
-			myplayer.player.height = SpiritWalkLogic.PreWalkPlayerHeight;
-
-			//
 
 			SpiritWalkFlightLogic.Deactivate( player );
 			SpiritWalkFxLogic.Deactivate( player );

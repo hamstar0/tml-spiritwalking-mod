@@ -48,7 +48,7 @@ namespace SpiritWalking.Logic {
 
 			layers.ForEach( l => l.visible = false );
 
-			layers.Add( new PlayerLayer( SpiritWalkingMod.Instance.Name, "Spirit Walker", SpiritWalkFxLogic.DrawSpirit ) );
+			layers.Add( new PlayerLayer(SpiritWalkingMod.Instance.Name, "Spirit Walker", SpiritWalkFxLogic.DrawSpirit) );
 		}
 
 

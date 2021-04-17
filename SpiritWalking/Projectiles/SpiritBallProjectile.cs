@@ -4,11 +4,11 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using SpiritWalking.Logic;
+using HamstarHelpers.Helpers.Debug;
 
 
 namespace SpiritWalking.Projectiles {
-	class SpiritBallProjectile : ModProjectile {
+	partial class SpiritBallProjectile : ModProjectile {
 		public override string Texture => "Terraria/NPC_"+NPCID.DungeonSpirit;
 
 
@@ -25,7 +25,6 @@ namespace SpiritWalking.Projectiles {
 			this.projectile.penetrate = -1;
 			this.projectile.hostile = false;
 			this.projectile.tileCollide = true;
-			this.projectile.ignoreWater = true;
 		}
 
 
@@ -36,36 +35,6 @@ namespace SpiritWalking.Projectiles {
 			return true;
 		}
 
-		public override bool OnTileCollide( Vector2 oldVelocity ) {
-			if( this.projectile.npcProj ) {
-				return true;
-			}
-
-			Player plr = Main.player[ this.projectile.owner ];
-			SpiritWalkFlightLogic.ApplySpiritWalkCollisionFriction( plr );
-			SpiritWalkFxLogic.ApplySpiritWalkCollisionFriction( plr );
-
-			/*bool velocityChanged = false;
-
-			if( this.projectile.velocity.X != oldVelocity.X && Math.Abs(oldVelocity.X) > 1f ) {
-				this.projectile.velocity.X = oldVelocity.X * -0.9f;
-				velocityChanged = true;
-			}
-			if( this.projectile.velocity.Y != oldVelocity.Y && Math.Abs(oldVelocity.Y) > 1f ) {
-				this.projectile.velocity.Y = oldVelocity.Y * -0.9f;
-				velocityChanged = true;
-			}
-
-			if( velocityChanged ) {
-				float length = this.projectile.velocity.Length();
-
-				myplayer.FlightDirection = Vector2.Normalize( this.projectile.velocity );
-				myplayer.FlightDirection *= Math.Min( length, SpiritWalkFlightLogic.DefaultFlightSpeed );
-			}*/
-
-			return false;
-		}
-
 
 		////////////////
 
@@ -74,12 +43,32 @@ namespace SpiritWalking.Projectiles {
 				return;
 			}
 
+			this.UpdateCollisionCooldown();
+
 			Player plr = Main.player[ this.projectile.owner ];
 			var myplayer = plr.GetModPlayer<SpiritWalkingPlayer>();
 
 			float accel = 0.1f;
 
 			this.projectile.velocity = Vector2.Lerp( this.projectile.velocity, myplayer.FlightDirection, accel );
+
+			/*float currAng = MathHelper.ToDegrees( this.projectile.velocity.ToRotation() );	<- Something fucky is going on with this buy my hair brain can't parse
+			float goalAng = MathHelper.ToDegrees( myplayer.FlightDirection.ToRotation() );
+			float lerpAng = currAng.AngleLerp( goalAng, 0.1f );
+DebugHelpers.Print( "currAng", currAng.ToString() );
+DebugHelpers.Print( "goalAng", goalAng.ToString() );
+DebugHelpers.Print( "lerpAng", lerpAng.ToString() );
+
+			float currLen = this.projectile.velocity.Length();
+			float goalLen = myplayer.FlightDirection.Length();
+
+			this.projectile.velocity = MathHelper.ToRadians(lerpAng).ToRotationVector2();
+			this.projectile.velocity *= currLen + ((goalLen - currLen) * accel);*/
+
+			this.projectile.timeLeft = 10;
+//DebugHelpers.Print( "pos", this.projectile.position.ToString() );
+//DebugHelpers.Print( "vel", this.projectile.velocity.ToString() );
+//DebugHelpers.Print( "dir", myplayer.FlightDirection.ToString() );
 		}
 
 

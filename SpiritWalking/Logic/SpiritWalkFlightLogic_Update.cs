@@ -15,6 +15,11 @@ namespace SpiritWalking.Logic {
 		public static void Update( SpiritWalkingPlayer myplayer ) {
 			SpiritWalkFlightLogic.UpdateSpeedChanges( myplayer );
 
+			if( myplayer.FlightProjectile?.active != true ) {
+				int projWho = SpiritWalkFlightLogic.CreateSpiritBall( myplayer );
+				myplayer.FlightProjectile = Main.projectile[ projWho ];
+			}
+
 			if( myplayer.FlightProjectile?.active == true ) {
 				myplayer.player.Center = myplayer.FlightProjectile.Center;
 				myplayer.player.velocity = default;

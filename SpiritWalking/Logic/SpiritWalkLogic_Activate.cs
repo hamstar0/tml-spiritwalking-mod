@@ -25,7 +25,7 @@ namespace SpiritWalking.Logic {
 
 			//
 
-			SpiritWalkFlightLogic.Activate( player );
+			SpiritWalkFlightLogic.Activate( myplayer );
 			SpiritWalkFxLogic.Activate( player );
 
 			SpiritWalkLogic.ActivatePlayerForm( player );

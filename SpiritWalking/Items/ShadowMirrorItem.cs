@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -6,13 +8,20 @@ using SpiritWalking.Logic;
 
 namespace SpiritWalking.Items {
 	public class ShadowMirrorItem : ModItem {
+		public static readonly IList<string> TooltipLines = new List<string> {
+			"Gaze into the mirror to go to Other Side",
+			"Activates 'spirit walking' on use",
+			"Press 'jump' while spirit walking to return (also causes a short dash)",
+			"\"I'm as free as a bird now!\""
+		};
+		
+
+
+		////////////////
+
 		public override void SetStaticDefaults() {
 			this.DisplayName.SetDefault( "Shadow Mirror" );
-			this.Tooltip.SetDefault(
-				"Gaze into the mirror to go to Other Side"
-				+"\nActivates 'spirit walking' mode"
-				+"\n\"When you gaze into the abyss...\""
-			);
+			this.Tooltip.SetDefault( string.Join("\n", ShadowMirrorItem.TooltipLines) );
 		}
 
 		public override void SetDefaults() {
@@ -29,6 +38,32 @@ namespace SpiritWalking.Items {
 
 		////
 
+		public override void ModifyTooltips( List<TooltipLine> tooltips ) {
+			var config = SpiritWalkingConfig.Instance;
+			float initNrgCost = config.Get<float>( nameof(config.InitialSpiritWalkEnergyCost) );
+			bool isAnima = config.Get<bool>( nameof(config.SpiritWalkUsesAnimaIfNecrotisAvailable) )
+				&& ModLoader.GetMod( "Necrotis" ) != null;
+
+			var lines = ShadowMirrorItem.TooltipLines.ToList();
+
+			if( isAnima ) {
+				string initNrgCostPerc = ((int)(initNrgCost * 100f)).ToString();
+
+				lines.Insert( 3, "Requires "+initNrgCostPerc+"% anima to activate (by default)" );
+				lines.Insert( 4, "Spirit walking drains anima while active" );
+			} else {
+				lines.Insert( 3, "Requires "+(int)initNrgCost+" mana to activate (by default)" );
+				lines.Insert( 4, "Spirit walking drains mana while active" );
+			}
+
+			lines.Insert( 5, "Collisions or contact with open air cause faster drain" );
+
+			this.Tooltip.SetDefault( string.Join( "\n", lines ) );
+		}
+
+
+		////////////////
+
 		public override bool UseItem( Player player ) {
 			if( player.itemAnimation == 1 ) {
 				SpiritWalkLogic.ActivateIf( player, true );
@@ -36,7 +71,7 @@ namespace SpiritWalking.Items {
 			return base.UseItem( player );
 		}
 
-		////
+		////////////////
 
 		public override void AddRecipes() {
 			int shadowMirrorType = ModContent.ItemType<ShadowMirrorItem>();

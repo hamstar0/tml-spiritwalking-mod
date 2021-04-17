@@ -2,19 +2,39 @@ using Terraria;
 using Terraria.GameInput;
 using HamstarHelpers.Helpers.Debug;
 using HamstarHelpers.Services.Timers;
+using HamstarHelpers.Helpers.World;
 
 
 namespace SpiritWalking.Logic {
 	internal partial class SpiritWalkLogic {
-		private static void UpdateSpiritWalk( SpiritWalkingPlayer myplayer ) {
+		private static void UpdateForSpiritWalk( SpiritWalkingPlayer myplayer ) {
 			var config = SpiritWalkingConfig.Instance;
-			float nrgAmtDraw = config.PerTickSpiritWalkEnergyCost;
+			float nrgAmtDraw = config.Get<float>( nameof(config.PerTickSpiritWalkEnergyCost) );
+
+			//
+
+			int tileX = (int)myplayer.player.Center.X;
+			int tileY = (int)myplayer.player.Center.Y;
+			if( WorldGen.InWorld(tileX, tileY) ) {
+				Tile tile = Main.tile[tileX, tileY];
+
+				if( tile.wall == 0 && tileY <= WorldHelpers.SurfaceLayerBottomTileY ) {
+					SpiritWalkFlightLogic.ApplySpiritWalkOpenAirFriction( myplayer.player );
+					SpiritWalkFxLogic.ApplySpiritWalkOpenAirFriction( myplayer.player );
+				}
+			}
+
+			//
 
 			SpiritWalkLogic.ApplyEnergyDraw( myplayer.player, nrgAmtDraw );
+
+			//
 
 			myplayer.player.gravity = 0f;
 			myplayer.player.width = 0;
 			myplayer.player.height = 0;
+
+			//
 
 			SpiritWalkFlightLogic.Update( myplayer );
 		}

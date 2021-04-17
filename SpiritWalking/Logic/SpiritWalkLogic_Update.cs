@@ -17,10 +17,12 @@ namespace SpiritWalking.Logic {
 			bool isStillSW = SpiritWalkLogic.HasEnergy( myplayer.player, nrgAmtDraw, out string status );
 
 			if( isStillSW ) {
-				SpiritWalkLogic.UpdateSpiritWalk( myplayer );
+				SpiritWalkLogic.UpdateForSpiritWalk( myplayer );
 			} else {
 				SpiritWalkLogic.DeactivateIf( myplayer.player, true );
 			}
+
+			SpiritWalkFxLogic.Update( myplayer, isStillSW );
 		}
 
 

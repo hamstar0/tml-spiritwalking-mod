@@ -57,8 +57,6 @@ namespace SpiritWalking.Items {
 			}
 
 			lines.Insert( 5, "Collisions or contact with open air cause faster drain" );
-
-			this.Tooltip.SetDefault( string.Join( "\n", lines ) );
 		}
 
 

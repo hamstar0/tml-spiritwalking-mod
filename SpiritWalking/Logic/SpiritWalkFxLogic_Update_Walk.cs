@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.DataStructures;
 using Terraria.Graphics.Effects;
 using Terraria.ModLoader;
 using HamstarHelpers.Helpers.Debug;
@@ -10,11 +10,7 @@ using HamstarHelpers.Helpers.Debug;
 namespace SpiritWalking.Logic {
 	internal partial class SpiritWalkFxLogic {
 		public static void UpdateForSpiritWalk( SpiritWalkingPlayer myplayer ) {
-			SpiritWalkFxLogic.EmitParticles(
-				position: myplayer.player.MountedCenter,
-				direction: default,
-				particles: 1
-			);
+			SpiritWalkFxLogic.EmitParticles( myplayer.player.MountedCenter, default, 1, -24 );
 
 			//Vector2 offsetPos = myplayer.player.MountedCenter + new Vector2( 0f, -20f );
 
@@ -27,10 +23,17 @@ namespace SpiritWalking.Logic {
 
 		////////////////
 
-		public static void UpdateDrawLayersForSpiritWalk( List<PlayerLayer> layers ) {
+		public static void UpdateDrawLayersForSpiritWalk( SpiritWalkingPlayer myplayer, List<PlayerLayer> layers ) {
 			layers.ForEach( l => l.visible = false );
 
-			layers.Add( new PlayerLayer(SpiritWalkingMod.Instance.Name, "Spirit Walker", SpiritWalkFxLogic.DrawSpirit) );
+			layers.Add( new PlayerLayer(
+				SpiritWalkingMod.Instance.Name,
+				"Spirit Walker",
+				( info ) => {
+					DrawData data = SpiritWalkFxLogic.GetSpiritDrawData( myplayer.player );
+					Main.playerDrawData.Add( data );
+				}
+			) );
 		}
 
 

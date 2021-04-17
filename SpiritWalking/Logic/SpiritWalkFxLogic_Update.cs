@@ -17,9 +17,9 @@ namespace SpiritWalking.Logic {
 
 		////////////////
 
-		public static void UpdateDrawLayers( List<PlayerLayer> layers, bool isSpiritWalking ) {
+		public static void UpdateDrawLayers( SpiritWalkingPlayer myplayer, List<PlayerLayer> layers, bool isSpiritWalking ) {
 			if( isSpiritWalking ) {
-				SpiritWalkFxLogic.UpdateDrawLayersForSpiritWalk( layers );
+				SpiritWalkFxLogic.UpdateDrawLayersForSpiritWalk( myplayer, layers );
 			}
 		}
 

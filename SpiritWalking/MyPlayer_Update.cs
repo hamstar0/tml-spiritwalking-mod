@@ -44,7 +44,7 @@ namespace SpiritWalking {
 		////////////////
 		
 		public override void ModifyDrawLayers( List<PlayerLayer> layers ) {
-			SpiritWalkFxLogic.UpdateDrawLayers( layers, this.IsSpiritWalking );
+			SpiritWalkFxLogic.UpdateDrawLayers( this, layers, this.IsSpiritWalking );
 		}
 
 		public override void FrameEffects() {

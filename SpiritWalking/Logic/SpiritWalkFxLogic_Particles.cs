@@ -10,13 +10,10 @@ namespace SpiritWalking.Logic {
 					Vector2 position,
 					Vector2 direction,
 					int particles,
-					int radius=16,
-					bool compensateForHitbox=true ) {
-			if( compensateForHitbox ) {
-				//position.X -= SpiritWalkLogic.PreWalkPlayerWidth / 2;
-				//position.Y -= SpiritWalkLogic.PreWalkPlayerHeight / 2;
-				position.Y -= 24;
-			}
+					int offsetY=0 ) {
+			position.Y += offsetY;
+
+			int radius = 16;
 
 			for( int i = 0; i < particles; i++ ) {
 				int idx = Dust.NewDust(

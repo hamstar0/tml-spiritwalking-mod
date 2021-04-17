@@ -13,8 +13,8 @@ namespace SpiritWalking.Logic {
 
 			//
 
-			int tileX = (int)myplayer.player.Center.X;
-			int tileY = (int)myplayer.player.Center.Y;
+			int tileX = (int)myplayer.player.Center.X / 16;
+			int tileY = (int)myplayer.player.Center.Y / 16;
 			if( WorldGen.InWorld(tileX, tileY) ) {
 				Tile tile = Main.tile[tileX, tileY];
 

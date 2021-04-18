@@ -52,6 +52,7 @@ namespace SpiritWalking.Logic {
 			myplayer.player.immune = true;
 			//myplayer.player.stoned = true;
 			myplayer.player.noFallDmg = true;
+			myplayer.player.gills = true;
 		}
 
 		private static void UpdateItemHoldStyleForSpiritWalk( SpiritWalkingPlayer myplayer, Item item ) {

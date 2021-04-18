@@ -15,9 +15,9 @@ namespace SpiritWalking {
 		internal Projectile FlightProjectile = null;
 
 
-		internal Vector2 FlightDirection = SpiritWalkFlightLogic.DefaultFlightHeading;
+		internal Vector2 IntendedFlightVelocity = SpiritWalkFlightLogic.DefaultFlightHeading;
 
-		internal float CurrentFlightScale = 1f;
+		internal float CurrentFlightSpeedScale = 1f;
 
 
 		internal int FlightBurstCooldown = 0;

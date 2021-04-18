@@ -49,8 +49,9 @@ namespace SpiritWalking.Projectiles {
 			var myplayer = plr.GetModPlayer<SpiritWalkingPlayer>();
 
 			float accel = 0.1f;
+			Vector2 vel = myplayer.IntendedFlightVelocity * myplayer.CurrentFlightSpeedScale;
 
-			this.projectile.velocity = Vector2.Lerp( this.projectile.velocity, myplayer.FlightDirection, accel );
+			this.projectile.velocity = Vector2.Lerp( this.projectile.velocity, vel, accel );
 
 			/*float currAng = MathHelper.ToDegrees( this.projectile.velocity.ToRotation() );	<- Something fucky is going on with this buy my hair brain can't parse
 			float goalAng = MathHelper.ToDegrees( myplayer.FlightDirection.ToRotation() );

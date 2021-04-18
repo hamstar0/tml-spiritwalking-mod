@@ -7,7 +7,7 @@ using SpiritWalking.Projectiles;
 namespace SpiritWalking.Logic {
 	internal partial class SpiritWalkFlightLogic {
 		public static void Activate( SpiritWalkingPlayer myplayer ) {
-			myplayer.FlightDirection = SpiritWalkFlightLogic.DefaultFlightHeading;
+			myplayer.IntendedFlightVelocity = SpiritWalkFlightLogic.DefaultFlightHeading;
 
 			int projWho = SpiritWalkFlightLogic.CreateSpiritBall( myplayer );
 			myplayer.FlightProjectile = Main.projectile[ projWho ];
@@ -17,19 +17,19 @@ namespace SpiritWalking.Logic {
 		public static void Deactivate( Player player ) {
 			var myplayer = player.GetModPlayer<SpiritWalkingPlayer>();
 
-			myplayer.FlightDirection = SpiritWalkFlightLogic.DefaultFlightHeading;
+			myplayer.IntendedFlightVelocity = SpiritWalkFlightLogic.DefaultFlightHeading;
 
 			myplayer.FlightProjectile.Kill();
 			myplayer.FlightProjectile = null;
 		}
 
 
-		////
+		////////////////
 
 		private static int CreateSpiritBall( SpiritWalkingPlayer myplayer ) {
 			return Projectile.NewProjectile(
 				position: myplayer.player.Center,
-				velocity: myplayer.FlightDirection,
+				velocity: myplayer.IntendedFlightVelocity,
 				Type: ModContent.ProjectileType<SpiritBallProjectile>(),
 				Damage: 0,
 				KnockBack: 0f,

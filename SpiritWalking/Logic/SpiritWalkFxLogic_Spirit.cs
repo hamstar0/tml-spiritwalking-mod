@@ -20,7 +20,7 @@ namespace SpiritWalking.Logic {
 			var myplayer = player.GetModPlayer<SpiritWalkingPlayer>();
 			//float angle = MathHelper.ToDegrees( myplayer.FlightDirection.ToRotation() );
 			//angle = angle + 90f;
-			float rad = myplayer.FlightDirection.ToRotation();
+			float rad = myplayer.IntendedFlightVelocity.ToRotation();
 			rad = MathHelper.WrapAngle( rad + MathHelper.PiOver2 );
 
 			Texture2D tex = Main.npcTexture[ NPCID.DungeonSpirit ];

@@ -33,9 +33,9 @@ namespace SpiritWalking.Logic {
 			}
 
 			if( left ) {
-				myplayer.FlightDirection = myplayer.FlightDirection.RotatedBy( -rotStep );
+				myplayer.IntendedFlightVelocity = myplayer.IntendedFlightVelocity.RotatedBy( -rotStep );
 			} else if( right ) {
-				myplayer.FlightDirection = myplayer.FlightDirection.RotatedBy( rotStep );
+				myplayer.IntendedFlightVelocity = myplayer.IntendedFlightVelocity.RotatedBy( rotStep );
 			}
 		}
 
@@ -77,8 +77,9 @@ namespace SpiritWalking.Logic {
 		////
 
 		public static void ApplyFlightSpeedScaleChange( SpiritWalkingPlayer myplayer, float scale ) {
-			myplayer.FlightDirection *= scale;
-			myplayer.CurrentFlightScale = scale;
+			float speed = SpiritWalkFlightLogic.DefaultFlightSpeed * scale;
+
+			myplayer.CurrentFlightSpeedScale = scale;
 
 			var config = SpiritWalkingConfig.Instance;
 			myplayer.FlightBurstDuration = config.Get<int>( nameof(config.SpiritWalkSpeedChangeTickDuration) );
@@ -90,8 +91,7 @@ namespace SpiritWalking.Logic {
 		public static void RevertFlightSpeedScale( SpiritWalkingPlayer myplayer ) {
 			myplayer.FlightBurstDuration = 0;
 
-			myplayer.FlightDirection /= myplayer.CurrentFlightScale;
-			myplayer.CurrentFlightScale = 1f;
+			myplayer.CurrentFlightSpeedScale = 1f;
 		}
 	}
 }

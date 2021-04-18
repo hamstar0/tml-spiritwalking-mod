@@ -25,7 +25,6 @@ namespace SpiritWalking.Projectiles {
 			this.projectile.penetrate = -1;
 			this.projectile.hostile = false;
 			this.projectile.tileCollide = true;
-			this.projectile.aiStyle = 8;
 		}
 
 

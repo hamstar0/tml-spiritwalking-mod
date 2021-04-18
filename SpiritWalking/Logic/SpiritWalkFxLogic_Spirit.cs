@@ -23,7 +23,7 @@ namespace SpiritWalking.Logic {
 			float rad = myplayer.FlightDirection.ToRotation();
 			rad = MathHelper.WrapAngle( rad + MathHelper.PiOver2 );
 
-			Texture2D tex = Main.npcTexture[NPCID.DungeonSpirit];
+			Texture2D tex = Main.npcTexture[ NPCID.DungeonSpirit ];
 			int frameCount = 3;
 			int texWidth = tex.Width;
 			int texHeight = tex.Height / frameCount;
@@ -46,7 +46,7 @@ namespace SpiritWalking.Logic {
 				SpiritWalkFxLogic.SpiritFrame %= frameCount;
 			}
 
-			return new DrawData(
+			var data = new DrawData(
 				texture: tex,
 				position: player.Center - Main.screenPosition,
 				sourceRect: new Rectangle( 0, texHeight * SpiritWalkFxLogic.SpiritFrame, texWidth, texHeight ),
@@ -57,6 +57,8 @@ namespace SpiritWalking.Logic {
 				effect: SpriteEffects.None,
 				inactiveLayerDepth: 0
 			);
+			data.ignorePlayerRotation = true;
+			return data;
 		}
 	}
 }

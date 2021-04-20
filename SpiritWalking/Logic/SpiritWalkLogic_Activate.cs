@@ -25,10 +25,11 @@ namespace SpiritWalking.Logic {
 
 			//
 
-			SpiritWalkFlightLogic.Activate( myplayer );
-			SpiritWalkFxLogic.Activate( player );
+			SpiritWalkFlightLogic.ActivateFlightBehavior( myplayer );
 
 			SpiritWalkLogic.ActivatePlayerForm( player );
+
+			SpiritWalkFxLogic.Activate( player );
 
 			//
 
@@ -46,12 +47,16 @@ namespace SpiritWalking.Logic {
 
 		public static void DeactivateIf( Player player, bool sync ) {
 			var myplayer = player.GetModPlayer<SpiritWalkingPlayer>();
+			if( !myplayer.IsSpiritWalking ) {
+				return;
+			}
 
 			//
 
 			SpiritWalkLogic.DeactivatePlayerForm( player );
 
-			SpiritWalkFlightLogic.Deactivate( player );
+			SpiritWalkFlightLogic.DeactivateFlightBehavior( player );
+
 			SpiritWalkFxLogic.Deactivate( player );
 
 			//
@@ -70,27 +75,30 @@ namespace SpiritWalking.Logic {
 
 		////////////////
 
+		//private static int PreWalkPlayerWidth = 0;
+		//private static int PreWalkPlayerHeight = 0;
+
 		private static void ActivatePlayerForm( Player player ) {
-			var myplayer = player.GetModPlayer<SpiritWalkingPlayer>();
+			//var myplayer = player.GetModPlayer<SpiritWalkingPlayer>();
 
 			if( player.mount.Active ) {
 				player.ClearBuff( player.mount.BuffType );
 				player.mount.Dismount( player );
 			}
 
-			SpiritWalkLogic.PreWalkPlayerWidth = myplayer.player.width;
+			/*SpiritWalkLogic.PreWalkPlayerWidth = myplayer.player.width;
 			SpiritWalkLogic.PreWalkPlayerHeight = myplayer.player.height;
 
 			myplayer.player.width = 0;
-			myplayer.player.height = 0;
+			myplayer.player.height = 0;*/
 		}
 
 
 		private static void DeactivatePlayerForm( Player player ) {
-			var myplayer = player.GetModPlayer<SpiritWalkingPlayer>();
+			/*var myplayer = player.GetModPlayer<SpiritWalkingPlayer>();
 
 			myplayer.player.width = SpiritWalkLogic.PreWalkPlayerWidth;
-			myplayer.player.height = SpiritWalkLogic.PreWalkPlayerHeight;
+			myplayer.player.height = SpiritWalkLogic.PreWalkPlayerHeight;*/
 		}
 	}
 }

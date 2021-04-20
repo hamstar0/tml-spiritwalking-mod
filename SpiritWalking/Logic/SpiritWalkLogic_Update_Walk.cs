@@ -36,8 +36,6 @@ namespace SpiritWalking.Logic {
 			//
 
 			myplayer.player.gravity = 0f;
-			myplayer.player.width = 0;
-			myplayer.player.height = 0;
 
 			//
 
@@ -68,18 +66,13 @@ namespace SpiritWalking.Logic {
 		}
 
 		public static void UpdateTriggersForSpiritWalk( SpiritWalkingPlayer myplayer, TriggersSet triggersSet ) {
+			bool jump = triggersSet.Jump;
 			bool down = triggersSet.KeyStatus["Down"];
 			bool up = triggersSet.KeyStatus["Up"];
 			bool left = triggersSet.KeyStatus["Left"];
 			bool right = triggersSet.KeyStatus["Right"];
 
-			if( SpiritWalkLogic.FinalDashElapsed <= 0 ) {
-				if( triggersSet.Jump ) {
-					SpiritWalkLogic.BeginFinalDash( myplayer );
-				} else if( down || up || left || right ) {
-					SpiritWalkFlightLogic.SteerFlight( myplayer, down, up, left, right );
-				}
-			}
+			SpiritWalkLogic.HandleWalkControls( myplayer, jump, down, up, left, right );
 
 			triggersSet.QuickMount = false;
 			triggersSet.Grapple = false;

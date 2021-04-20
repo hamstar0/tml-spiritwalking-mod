@@ -7,11 +7,14 @@ namespace SpiritWalking.Logic {
 	internal partial class SpiritWalkFlightLogic {
 		public static void SteerFlight( SpiritWalkingPlayer myplayer, bool down, bool up, bool left, bool right ) {
 			float rotStep = 0.03f;
+			bool isFinalDash = myplayer.FinalDashElapsed > 0;
 
-			if( down ) {
-				SpiritWalkFlightLogic.ApplyFlightSpeedBrakeIf( myplayer );
-			} else if( up ) {
-				SpiritWalkFlightLogic.ApplyFlightSpeedBoostIf( myplayer );
+			if( !isFinalDash ) {
+				if( down ) {
+					SpiritWalkFlightLogic.ApplyFlightSpeedBrakeIf( myplayer );
+				} else if( up ) {
+					SpiritWalkFlightLogic.ApplyFlightSpeedBoostIf( myplayer );
+				}
 			}
 
 			if( left ) {
@@ -36,10 +39,10 @@ namespace SpiritWalking.Logic {
 
 			Main.PlaySound( SoundID.DoubleJump );
 
-			SpiritWalkFxLogic.EmitParticles(
-				myplayer.FlightProjectile.Center,
-				myplayer.FlightProjectile.velocity * 2f,
-				20
+			SpiritWalkFxLogic.EmitSpiritParticles(
+				position: myplayer.FlightProjectile.Center,
+				direction: myplayer.FlightProjectile.velocity * 2f,
+				particles: 20
 			);
 		}
 
@@ -55,10 +58,10 @@ namespace SpiritWalking.Logic {
 
 			Main.PlaySound( SoundID.Grass );
 
-			SpiritWalkFxLogic.EmitParticles(
-				myplayer.FlightProjectile.Center,
-				myplayer.FlightProjectile.velocity * -2f,
-				20
+			SpiritWalkFxLogic.EmitSpiritParticles(
+				position: myplayer.FlightProjectile.Center,
+				direction: myplayer.FlightProjectile.velocity * -2f,
+				particles: 20
 			);
 		}
 

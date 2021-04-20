@@ -6,7 +6,7 @@ using SpiritWalking.Projectiles;
 
 namespace SpiritWalking.Logic {
 	internal partial class SpiritWalkFlightLogic {
-		public static void Activate( SpiritWalkingPlayer myplayer ) {
+		public static void ActivateFlightBehavior( SpiritWalkingPlayer myplayer ) {
 			myplayer.IntendedFlightVelocity = SpiritWalkFlightLogic.DefaultFlightHeading;
 
 			int projWho = SpiritWalkFlightLogic.CreateSpiritBall( myplayer );
@@ -14,13 +14,16 @@ namespace SpiritWalking.Logic {
 		}
 
 
-		public static void Deactivate( Player player ) {
+		public static void DeactivateFlightBehavior( Player player ) {
 			var myplayer = player.GetModPlayer<SpiritWalkingPlayer>();
 
 			myplayer.IntendedFlightVelocity = SpiritWalkFlightLogic.DefaultFlightHeading;
 
-			myplayer.FlightProjectile.Kill();
-			myplayer.FlightProjectile = null;
+			if( myplayer.FlightProjectile != null ) {
+				myplayer.FlightProjectile.Kill();
+				myplayer.FlightProjectile.active = false;
+				myplayer.FlightProjectile = null;
+			}
 		}
 
 

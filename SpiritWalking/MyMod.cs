@@ -67,6 +67,10 @@ namespace SpiritWalking {
 		////////////////
 
 		public override void ModifyInterfaceLayers( List<GameInterfaceLayer> layers ) {
+			if( SpiritWalkingConfig.Instance.DebugModeInfo ) {
+				return;
+			}
+
 			var plr = Main.LocalPlayer;
 			var myplayer = plr.GetModPlayer<SpiritWalkingPlayer>();
 

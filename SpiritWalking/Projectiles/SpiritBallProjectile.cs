@@ -21,8 +21,8 @@ namespace SpiritWalking.Projectiles {
 		}
 
 		public override void SetDefaults() {
-			this.projectile.width = 8;
-			this.projectile.height = 8;
+			this.projectile.width = 12;
+			this.projectile.height = 12;
 			this.projectile.penetrate = -1;
 			this.projectile.hostile = false;
 			this.projectile.tileCollide = true;
@@ -44,9 +44,14 @@ namespace SpiritWalking.Projectiles {
 				return;
 			}
 
-			this.UpdateCollisionCooldown();
+			Vector2? vel = SpiritWalkFlightLogic.CalculateSpiritBallVelocity( this );
+			if( !vel.HasValue ) {
+				this.projectile.Kill();
 
-			this.projectile.velocity = SpiritWalkFlightLogic.CalculateSpiritBallVelocity( this );
+				return;
+			}
+
+			this.projectile.velocity = vel.Value;
 
 			this.projectile.timeLeft = 10;
 		}

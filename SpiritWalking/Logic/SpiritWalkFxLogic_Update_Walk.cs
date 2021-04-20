@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.DataStructures;
@@ -11,21 +10,18 @@ using HamstarHelpers.Helpers.Debug;
 namespace SpiritWalking.Logic {
 	internal partial class SpiritWalkFxLogic {
 		public static void UpdateForSpiritWalk( SpiritWalkingPlayer myplayer ) {
-			SpiritWalkFxLogic.EmitParticles( myplayer.player.MountedCenter, default, 1, -24 );
-
-			var offsetPos = myplayer.player.MountedCenter + new Vector2( 0f, -20f );
-
-			Dust dust = Dust.NewDustPerfect(
-				Position: offsetPos,// - new Vector2(8),
-				Type: 6,
-				Velocity: -myplayer.player.velocity,
-				Alpha: 100,
-				newColor: Color.Gold,
-				Scale: 2f
+			SpiritWalkFxLogic.EmitSpiritParticles(
+				position: myplayer.player.MountedCenter,
+				direction: default,
+				particles: 1
+				//wide: false
+				//offsetY: -24
 			);
-			//dust.velocity *= 3f;
-			dust.noGravity = true;
-			//Dust.QuickDust( offsetPos, Color.Cyan );
+
+			SpiritWalkFxLogic.EmitSpiritTrailParticles(
+				position: myplayer.player.MountedCenter	// + new Vector2( 0f, -20f ),
+				//direction: -myplayer.player.velocity
+			);
 		}
 
 

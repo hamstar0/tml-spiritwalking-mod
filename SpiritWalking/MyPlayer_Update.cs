@@ -8,7 +8,7 @@ using SpiritWalking.Logic;
 
 
 namespace SpiritWalking {
-	public partial class SpiritWalkingPlayer : ModPlayer {
+	partial class SpiritWalkingPlayer : ModPlayer {
 		public override void PreUpdate() {
 			SpiritWalkLogic.Update( this, this.IsSpiritWalking );
 		}

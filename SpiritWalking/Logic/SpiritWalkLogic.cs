@@ -4,18 +4,6 @@ using HamstarHelpers.Helpers.Debug;
 
 namespace SpiritWalking.Logic {
 	internal partial class SpiritWalkLogic {
-		private static int PreWalkPlayerWidth = 0;
-		private static int PreWalkPlayerHeight = 0;
-
-
-		////////////////
-
-		public static int FinalDashElapsed { get; private set; }
-
-
-
-		////////////////
-
 		public static bool HasEnergy( Player player, float energyCost, out string status ) {
 			var config = SpiritWalkingConfig.Instance;
 			bool swUsesAnima = config.SpiritWalkUsesAnimaIfNecrotisAvailable

@@ -34,13 +34,25 @@ namespace SpiritWalking.Logic {
 		public static void ApplySpiritWalkOpenAirFriction( Player player ) {
 			SpiritWalkFxLogic.OpenAirDetected = true;
 
-			SpiritWalkFxLogic.EmitParticles( player.MountedCenter, default, 2, 24 );
+			SpiritWalkFxLogic.EmitSpiritParticles(
+				position: player.MountedCenter,
+				direction: default,
+				particles: 2
+				//wide: false,
+				//offsetY: 24
+			);
 		}
 		
 		public static void ApplySpiritWalkCollisionFriction( Player player ) {
 			SpiritWalkFxLogic.CollisionDetected = true;
 
-			SpiritWalkFxLogic.EmitParticles( player.MountedCenter, default, 2, -24 );
+			SpiritWalkFxLogic.EmitSpiritParticles(
+				position: player.MountedCenter,
+				direction: default,
+				particles: 2
+				//wide: false,
+				//offsetY: -24
+			);
 		}
 	}
 }

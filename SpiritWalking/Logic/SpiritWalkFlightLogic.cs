@@ -7,16 +7,19 @@ using SpiritWalking.Projectiles;
 
 namespace SpiritWalking.Logic {
 	internal partial class SpiritWalkFlightLogic {
-		public static Vector2 CalculateSpiritBallVelocity( SpiritBallProjectile myproj ) {
+		public static Vector2? CalculateSpiritBallVelocity( SpiritBallProjectile myproj ) {
 			float chasePerc = 0.1f;
 			Projectile proj = myproj.projectile;
+			Player plr = Main.player[proj.owner];
+			var myplayer = plr.GetModPlayer<SpiritWalkingPlayer>();
 
-			if( SpiritWalkLogic.FinalDashElapsed > 0 ) {
-				return Vector2.Lerp( proj.velocity, default, chasePerc );
+			if( !myplayer.IsSpiritWalking ) {
+				return null;
 			}
 
-			Player plr = Main.player[proj.owner ];
-			var myplayer = plr.GetModPlayer<SpiritWalkingPlayer>();
+			if( myplayer.FinalDashElapsed > 0 ) {
+				return Vector2.Lerp( proj.velocity, default, chasePerc );
+			}
 
 			Vector2 vel = myplayer.IntendedFlightVelocity * myplayer.CurrentFlightSpeedScale;
 

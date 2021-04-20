@@ -24,6 +24,11 @@ namespace SpiritWalking {
 
 		////////////////
 		
+		public bool DebugModeInfo { get; set; } = false;
+		
+		
+		////////////////
+		
 		[DefaultValue( true )]
 		public bool ShadowMirrorRecipeEnabled { get; set; } = true;
 		

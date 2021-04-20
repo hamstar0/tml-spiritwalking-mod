@@ -9,29 +9,10 @@ using SpiritWalking.Logic;
 
 namespace SpiritWalking.Projectiles {
 	partial class SpiritBallProjectile : ModProjectile {
-		//private int CollisionCooldown = 0;
-
-
-
-		////////////////
-
-		private void UpdateCollisionCooldown() {
-			//if( this.CollisionCooldown > 0 ) {
-			//	this.CollisionCooldown--;
-			//}
-		}
-
-
 		public override bool OnTileCollide( Vector2 oldVelocity ) {
 			if( this.projectile.npcProj ) {
 				return true;
 			}
-
-			//if( this.CollisionCooldown > 0 ) {
-			//	return false;
-			//}
-			//
-			//this.CollisionCooldown = 4;
 
 			Player plr = Main.player[ this.projectile.owner ];
 			SpiritWalkFlightLogic.ApplySpiritWalkCollisionFriction( plr );

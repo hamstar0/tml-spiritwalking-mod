@@ -8,7 +8,7 @@ using SpiritWalking.Items;
 
 
 namespace SpiritWalking {
-	public partial class SpiritWalkingPlayer : ModPlayer {
+	partial class SpiritWalkingPlayer : ModPlayer {
 		internal bool IsSpiritWalking = false;
 
 
@@ -23,6 +23,9 @@ namespace SpiritWalking {
 		internal int FlightBurstCooldown = 0;
 
 		internal int FlightBurstDuration = 0;
+
+
+		internal int FinalDashElapsed = 0;
 
 
 

@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -7,27 +8,35 @@ using HamstarHelpers.Helpers.Debug;
 namespace SpiritWalking.Logic {
 	internal partial class SpiritWalkLogic {
 		public static void BeginFinalDash( SpiritWalkingPlayer myplayer ) {
-			SpiritWalkLogic.FinalDashElapsed = 1;
+			myplayer.FinalDashElapsed = 1;
 		}
 
 
 		////////////////
 
 		private static void RunFinalDashIf( SpiritWalkingPlayer myplayer ) {
-			if( SpiritWalkLogic.FinalDashElapsed <= 0 ) {
+			if( myplayer.FinalDashElapsed <= 0 ) {
 				return;
 			}
 
 			int chargeTime = 90;
 
-			if( SpiritWalkLogic.FinalDashElapsed >= chargeTime ) {
-				SpiritWalkLogic.FinalDashElapsed = 0;
+			SpiritWalkFxLogic.EmitSpiritTrailParticles(
+				position: myplayer.player.MountedCenter,
+				direction: Vector2.One.RotatedByRandom(Math.PI) * 5f
+				//particles: 1
+				//wide: true
+				//offsetY: 0
+			);
+
+			if( myplayer.FinalDashElapsed >= chargeTime ) {
+				myplayer.FinalDashElapsed = 0;
 
 				SpiritWalkLogic.AttemptFinalDash( myplayer, true );
 
 				SpiritWalkLogic.DeactivateIf( myplayer.player, true );
 			} else {
-				SpiritWalkLogic.FinalDashElapsed++;
+				myplayer.FinalDashElapsed++;
 			}
 		}
 

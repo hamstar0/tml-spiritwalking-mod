@@ -30,7 +30,7 @@ namespace SpiritWalking.Logic {
 			}
 
 			var config = SpiritWalkingConfig.Instance;
-			float brake = config.Get<int>( nameof(config.SpiritWalkBrakeSpeedMultiplier) );
+			float brake = config.Get<float>( nameof(config.SpiritWalkBrakeSpeedMultiplier) );
 
 			SpiritWalkFlightLogic.ApplyFlightSpeedScaleChange( myplayer, brake );
 
@@ -49,7 +49,7 @@ namespace SpiritWalking.Logic {
 			}
 			
 			var config = SpiritWalkingConfig.Instance;
-			float boost = config.Get<int>( nameof(config.SpiritWalkBoostSpeedMultiplier) );
+			float boost = config.Get<float>( nameof(config.SpiritWalkBoostSpeedMultiplier) );
 
 			SpiritWalkFlightLogic.ApplyFlightSpeedScaleChange( myplayer, boost );
 

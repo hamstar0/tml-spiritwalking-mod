@@ -8,6 +8,11 @@ namespace SpiritWalking.Logic {
 		private static int PreWalkPlayerHeight = 0;
 
 
+		////////////////
+
+		public static int FinalDashElapsed { get; private set; }
+
+
 
 		////////////////
 

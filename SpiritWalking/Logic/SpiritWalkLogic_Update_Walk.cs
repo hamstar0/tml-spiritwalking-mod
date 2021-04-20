@@ -9,7 +9,6 @@ namespace SpiritWalking.Logic {
 	internal partial class SpiritWalkLogic {
 		private static void UpdateForSpiritWalk( SpiritWalkingPlayer myplayer ) {
 			var config = SpiritWalkingConfig.Instance;
-			float nrgAmtDraw = config.Get<float>( nameof(config.PerTickSpiritWalkEnergyCost) );
 
 			//
 
@@ -26,7 +25,13 @@ namespace SpiritWalking.Logic {
 
 			//
 
+			float nrgAmtDraw = config.Get<float>( nameof(config.PerTickSpiritWalkEnergyCost) );
+
 			SpiritWalkLogic.ApplyEnergyDraw( myplayer.player, nrgAmtDraw );
+
+			//
+
+			SpiritWalkLogic.RunFinalDashIf( myplayer );
 
 			//
 
@@ -67,9 +72,13 @@ namespace SpiritWalking.Logic {
 			bool up = triggersSet.KeyStatus["Up"];
 			bool left = triggersSet.KeyStatus["Left"];
 			bool right = triggersSet.KeyStatus["Right"];
-			
-			if( down || up || left || right ) {
-				SpiritWalkFlightLogic.SteerFlight( myplayer, down, up, left, right );
+
+			if( SpiritWalkLogic.FinalDashElapsed <= 0 ) {
+				if( triggersSet.Jump ) {
+					SpiritWalkLogic.BeginFinalDash( myplayer );
+				} else if( down || up || left || right ) {
+					SpiritWalkFlightLogic.SteerFlight( myplayer, down, up, left, right );
+				}
 			}
 
 			triggersSet.QuickMount = false;

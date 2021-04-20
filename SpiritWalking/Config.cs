@@ -72,5 +72,10 @@ namespace SpiritWalking {
 		[DefaultValue( 2f )]
 		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
 		public float SpiritWalkBoostSpeedMultiplier { get; set; } = 2f;
+
+		
+		[Range( 0, 128 )]
+		[DefaultValue( 12 )]
+		public int FinalFishTileDistance { get; set; } = 12;
 	}
 }

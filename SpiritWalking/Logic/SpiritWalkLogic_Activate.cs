@@ -32,15 +32,15 @@ namespace SpiritWalking.Logic {
 
 			//
 
+			myplayer.IsSpiritWalking = true;
+
+			//
+
 			if( sync ) {
 				if( Main.netMode == NetmodeID.MultiplayerClient ) {
 					SpiritWalkStateProtocol.Broadcast( myplayer );
 				}
 			}
-
-			//
-
-			myplayer.IsSpiritWalking = true;
 		}
 
 
@@ -56,15 +56,15 @@ namespace SpiritWalking.Logic {
 
 			//
 
+			myplayer.IsSpiritWalking = false;
+
+			//
+
 			if( sync ) {
 				if( Main.netMode == NetmodeID.MultiplayerClient ) {
 					SpiritWalkStateProtocol.Broadcast( myplayer );
 				}
 			}
-
-			//
-
-			myplayer.IsSpiritWalking = false;
 		}
 
 

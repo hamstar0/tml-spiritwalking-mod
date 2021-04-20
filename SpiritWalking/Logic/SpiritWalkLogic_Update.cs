@@ -7,6 +7,7 @@ using HamstarHelpers.Helpers.Debug;
 namespace SpiritWalking.Logic {
 	internal partial class SpiritWalkLogic {
 		public static void Update( SpiritWalkingPlayer myplayer, bool isSpiritWalking ) {
+DebugHelpers.Print( "walk?", ""+isSpiritWalking );
 			if( !isSpiritWalking ) {
 				return;
 			}

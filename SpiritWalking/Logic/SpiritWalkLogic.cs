@@ -1,9 +1,25 @@
 using Terraria;
 using HamstarHelpers.Helpers.Debug;
+using HamstarHelpers.Helpers.World;
 
 
 namespace SpiritWalking.Logic {
 	internal partial class SpiritWalkLogic {
+		public static bool IsUponOpenAir( Player player ) {
+			int tileX = (int)player.Center.X / 16;
+			int tileY = (int)player.Center.Y / 16;
+
+			if( !WorldGen.InWorld( tileX, tileY ) ) {
+				return false;
+			}
+
+			Tile tile = Main.tile[tileX, tileY];
+			return tile.wall == 0 && tileY <= WorldHelpers.SurfaceLayerBottomTileY;
+		}
+
+
+		////////////////
+
 		public static bool HasEnergy( Player player, float energyCost, out string status ) {
 			var config = SpiritWalkingConfig.Instance;
 			bool swUsesAnima = config.SpiritWalkUsesAnimaIfNecrotisAvailable

@@ -16,7 +16,16 @@ namespace SpiritWalking.Logic {
 
 			if( !SpiritWalkLogic.HasEnergy(player, nrgAmtDraw, out string status) ) {
 				Main.NewText( status, Color.Yellow );
+
 				return;
+			}
+
+			if( SpiritWalkLogic.IsUponOpenAir(player) ) {
+				if( !config.Get<bool>( nameof( config.OpenAirAllowsEngagingSpiritWalk ) ) ) {
+					Main.NewText( "Cannot enage spirit walking upon open air.", Color.Yellow );
+
+					return;
+				}
 			}
 
 			//

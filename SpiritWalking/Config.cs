@@ -81,6 +81,11 @@ namespace SpiritWalking {
 		
 		[Range( 0, 128 )]
 		[DefaultValue( 12 )]
-		public int FinalFishTileDistance { get; set; } = 12;
+		public int FinalDashTileDistance { get; set; } = 12;
+
+		//
+
+		[DefaultValue( true )]
+		public bool OpenAirAllowsEngagingSpiritWalk { get; set; } = true;
 	}
 }

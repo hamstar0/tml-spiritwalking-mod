@@ -8,11 +8,17 @@ using SpiritWalking.Logic;
 
 namespace SpiritWalking.Items {
 	public class ShadowMirrorItem : ModItem {
-		public static readonly IList<string> TooltipLines = new List<string> {
-			"Gaze into the mirror to go to Other Side",
+		public static readonly string[] TooltipLines = new string[] {
 			"Activates 'spirit walking' on use",
+			"When spirit walking, use the arrow keys to navigate",
 			"Press 'jump' while spirit walking to return (also causes a short dash)",
-			"\"I'm as free as a bird now!\""
+		};
+
+		public static readonly string[] TooltipQuoteLines  = new string[] {
+			"\"Let my spirit carry me.\"",
+			"\"I am a fluffy pink bunny!\"",
+			"\"I dreamt I was a butterfly.\"",
+			"\"Break on through to the other side.\""
 		};
 		
 
@@ -57,6 +63,9 @@ namespace SpiritWalking.Items {
 			}
 
 			lines.Insert( 5, "Collisions or contact with open air cause faster drain" );
+
+			int randQuoteIdx = Main.rand.Next( ShadowMirrorItem.TooltipQuoteLines .Length );
+			lines.Add( ShadowMirrorItem.TooltipQuoteLines [randQuoteIdx] );
 		}
 
 
@@ -66,6 +75,7 @@ namespace SpiritWalking.Items {
 			if( player.itemAnimation == 1 ) {
 				SpiritWalkLogic.ActivateIf( player, true );
 			}
+
 			return base.UseItem( player );
 		}
 

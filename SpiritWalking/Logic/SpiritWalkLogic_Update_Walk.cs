@@ -12,15 +12,9 @@ namespace SpiritWalking.Logic {
 
 			//
 
-			int tileX = (int)myplayer.player.Center.X / 16;
-			int tileY = (int)myplayer.player.Center.Y / 16;
-			if( WorldGen.InWorld(tileX, tileY) ) {
-				Tile tile = Main.tile[tileX, tileY];
-
-				if( tile.wall == 0 && tileY <= WorldHelpers.SurfaceLayerBottomTileY ) {
-					SpiritWalkFlightLogic.ApplySpiritWalkOpenAirFriction( myplayer.player );
-					SpiritWalkFxLogic.ApplySpiritWalkOpenAirFriction( myplayer.player );
-				}
+			if( SpiritWalkLogic.IsUponOpenAir(myplayer.player) ) {
+				SpiritWalkFlightLogic.ApplySpiritWalkOpenAirFriction( myplayer.player );
+				SpiritWalkFxLogic.ApplySpiritWalkOpenAirFriction( myplayer.player );
 			}
 
 			//

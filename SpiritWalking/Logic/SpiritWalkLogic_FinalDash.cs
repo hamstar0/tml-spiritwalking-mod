@@ -69,7 +69,7 @@ namespace SpiritWalking.Logic {
 
 		public static void AttemptFinalDash( SpiritWalkingPlayer myplayer, bool sync ) {
 			var config = SpiritWalkingConfig.Instance;
-			int finalDashTileDist = config.Get<int>( nameof(config.FinalFishTileDistance) );
+			int finalDashTileDist = config.Get<int>( nameof(config.FinalDashTileDistance) );
 
 			Vector2 aim = Vector2.Normalize( myplayer.IntendedFlightVelocity );
 			aim *= (float)finalDashTileDist * 16f;

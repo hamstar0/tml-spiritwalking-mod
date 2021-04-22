@@ -30,7 +30,7 @@ namespace SpiritWalking.Logic {
 
 		private static bool ApplyActivateManaCostIf( Player player ) {
 			var config = SpiritWalkingConfig.Instance;
-			float manaCost = config.Get<float>( nameof(config.InitialSpiritWalkManaCost) );
+			int manaCost = config.Get<int>( nameof(config.InitialSpiritWalkManaCost) );
 
 			if( !SpiritWalkLogic.HasMana( player, manaCost, out string status ) ) {
 				Main.NewText( status, Color.Yellow );

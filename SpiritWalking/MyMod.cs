@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 using Terraria.UI;
+using Terraria.ModLoader;
 using HamstarHelpers.Services.UI.LayerDisable;
-
+using System;
 
 namespace SpiritWalking {
 	public class SpiritWalkingMod : Mod {
@@ -32,6 +32,13 @@ namespace SpiritWalking {
 
 			if( Main.netMode != NetmodeID.Server && !Main.dedServ ) {
 				Main.instance.LoadNPC( NPCID.DungeonSpirit );
+
+				Mod hudMod = ModLoader.GetMod( "HUDElementsLib" );
+				if( hudMod != null ) {
+					Func<string, bool> hook = name => name == "Anima Gauge";
+
+					hudMod.Call( "AddWidgetViewHook", hook );
+				}
 			}
 		}
 
@@ -97,7 +104,7 @@ namespace SpiritWalking {
 					case LayerDisable.MapOrMinimap:
 						break;
 					default:
-						if( l.Name.Contains("Necrotis") ) {
+						if( l.Name.Contains("HUDElementsLib: Widgets") ) {
 							break;
 						}
 

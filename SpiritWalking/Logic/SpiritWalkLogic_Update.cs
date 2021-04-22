@@ -6,24 +6,52 @@ using HamstarHelpers.Helpers.Debug;
 
 namespace SpiritWalking.Logic {
 	internal partial class SpiritWalkLogic {
+		private static bool CanSpiritWalk( Player player ) {
+			if( SpiritWalkingConfig.SpiritWalkUsesAnima ) {
+				return SpiritWalkLogic.CanSpiritWalkWithAnima( player );
+			} else {
+				return SpiritWalkLogic.CanSpiritWalkWithMana( player );
+			}
+		}
+
+		////
+
+		private static bool CanSpiritWalkWithMana( Player player ) {
+			if( SpiritWalkLogic.ManaCostDuration > 0 ) {
+				return false;
+			}
+
+			var config = SpiritWalkingConfig.Instance;
+			int manaCostRate = config.Get<int>( nameof(config.PerRateSpiritWalkManaCost) );
+
+			return SpiritWalkLogic.HasMana( player, manaCostRate, out string status );
+		}
+
+		private static bool CanSpiritWalkWithAnima( Player player ) {
+			var config = SpiritWalkingConfig.Instance;
+			float animaCostRate = config.Get<float>( nameof(config.PerTickSpiritWalkAnimaPercentCost) );
+
+			return SpiritWalkLogic.HasAnima( player, animaCostRate, out string status );
+		}
+
+
+		////////////////
+
 		public static void Update( SpiritWalkingPlayer myplayer, bool isSpiritWalking ) {
 //DebugHelpers.Print( "walk?", ""+isSpiritWalking+", "+myplayer.player.width+", "+myplayer.player.height );
 			if( !isSpiritWalking ) {
 				return;
 			}
 
-			var config = SpiritWalkingConfig.Instance;
-			float nrgAmtDraw = config.PerTickSpiritWalkEnergyCost;
+			bool canSW = SpiritWalkLogic.CanSpiritWalk( myplayer.player );
 
-			bool isStillSW = SpiritWalkLogic.HasEnergy( myplayer.player, nrgAmtDraw, out string status );
-
-			if( isStillSW ) {
+			if( canSW ) {
 				SpiritWalkLogic.UpdateForSpiritWalk( myplayer );
 			} else {
 				SpiritWalkLogic.DeactivateIf( myplayer.player, true );
 			}
 
-			SpiritWalkFxLogic.Update( myplayer, isStillSW );
+			SpiritWalkFxLogic.Update( myplayer, canSW );
 		}
 
 

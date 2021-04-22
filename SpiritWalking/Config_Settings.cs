@@ -14,11 +14,6 @@ namespace SpiritWalking {
 
 		//
 
-		[DefaultValue( true )]
-		public bool SpiritWalkUsesAnimaIfNecrotisAvailable { get; set; } = true;
-
-		//
-
 		public bool OpenAirAllowsEngagingSpiritWalk { get; set; } = false;
 	}
 }

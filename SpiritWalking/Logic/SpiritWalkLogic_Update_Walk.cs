@@ -2,11 +2,35 @@ using Terraria;
 using Terraria.GameInput;
 using HamstarHelpers.Helpers.Debug;
 using HamstarHelpers.Services.Timers;
-using HamstarHelpers.Helpers.World;
 
 
 namespace SpiritWalking.Logic {
 	internal partial class SpiritWalkLogic {
+		public static int ManaCostDuration { get; private set; } = 0;
+
+
+
+		////////////////
+
+		private static void ApplySpiritWalkCost( Player player ) {
+			var config = SpiritWalkingConfig.Instance;
+
+			if( SpiritWalkingConfig.SpiritWalkUsesAnima ) {
+				float animaPercCost = config.Get<float>( nameof(config.PerTickSpiritWalkAnimaPercentCost) );
+
+				SpiritWalkLogic.ApplyAnimaDraw( player, animaPercCost );
+			} else {
+				if( SpiritWalkLogic.ManaCostDuration == 0 ) {
+					int manaCost = config.Get<int>( nameof(config.PerRateSpiritWalkManaCost) );
+
+					SpiritWalkLogic.ApplyManaDraw( player, manaCost );
+				}
+			}
+		}
+
+
+		////
+
 		private static void UpdateForSpiritWalk( SpiritWalkingPlayer myplayer ) {
 			var config = SpiritWalkingConfig.Instance;
 
@@ -19,9 +43,12 @@ namespace SpiritWalking.Logic {
 
 			//
 
-			float nrgAmtDraw = config.Get<float>( nameof(config.PerTickSpiritWalkEnergyCost) );
+			int tickRate = config.Get<int>( nameof(config.SpiritWalkManaCostTickRate) );
+			if( SpiritWalkLogic.ManaCostDuration++ >= tickRate ) {
+				SpiritWalkLogic.ManaCostDuration = 0;
+			}
 
-			SpiritWalkLogic.ApplyEnergyDraw( myplayer.player, nrgAmtDraw );
+			SpiritWalkLogic.ApplySpiritWalkCost( myplayer.player );
 
 			//
 

@@ -5,22 +5,56 @@ using Terraria.ID;
 
 namespace SpiritWalking.Logic {
 	internal partial class SpiritWalkLogic {
+		private static bool ApplyActivateCostIf( Player player ) {
+			var config = SpiritWalkingConfig.Instance;
+
+			if( SpiritWalkingConfig.SpiritWalkUsesAnima ) {
+				SpiritWalkLogic.ApplyActivateAnimaCostIf( player );
+			} else {
+				SpiritWalkLogic.ApplyActivateManaCostIf( player );
+			}
+
+			return true;
+		}
+
+		////
+
+		private static bool ApplyActivateAnimaCostIf( Player player ) {
+			var config = SpiritWalkingConfig.Instance;
+			float animaPercCost = config.Get<float>( nameof(config.InitialSpiritWalkAnimaPercentCost) );
+
+			SpiritWalkLogic.ApplyAnimaDraw( player, animaPercCost );
+
+			return true;
+		}
+
+		private static bool ApplyActivateManaCostIf( Player player ) {
+			var config = SpiritWalkingConfig.Instance;
+			float manaCost = config.Get<float>( nameof(config.InitialSpiritWalkManaCost) );
+
+			if( !SpiritWalkLogic.HasMana( player, manaCost, out string status ) ) {
+				Main.NewText( status, Color.Yellow );
+
+				return false;
+			}
+
+			SpiritWalkLogic.ApplyManaDraw( player, manaCost );
+
+			return true;
+		}
+
+
+		////////////////
+
 		public static void ActivateIf( Player player, bool sync ) {
 			var config = SpiritWalkingConfig.Instance;
 			var myplayer = player.GetModPlayer<SpiritWalkingPlayer>();
-			float nrgAmtDraw = config.InitialSpiritWalkEnergyCost;
 
 			if( myplayer.IsSpiritWalking ) {
 				return;
 			}
 
-			if( !SpiritWalkLogic.HasEnergy(player, nrgAmtDraw, out string status) ) {
-				Main.NewText( status, Color.Yellow );
-
-				return;
-			}
-
-			if( SpiritWalkLogic.IsUponOpenAir(player) ) {
+			if( SpiritWalkLogic.IsUponOpenAir( player ) ) {
 				if( !config.Get<bool>( nameof( config.OpenAirAllowsEngagingSpiritWalk ) ) ) {
 					Main.NewText( "Cannot enage spirit walking upon open air.", Color.Yellow );
 
@@ -28,9 +62,9 @@ namespace SpiritWalking.Logic {
 				}
 			}
 
-			//
-
-			SpiritWalkLogic.ApplyEnergyDraw( player, nrgAmtDraw );
+			if( !SpiritWalkLogic.ApplyActivateCostIf(player) ) {
+				return;
+			}
 
 			//
 

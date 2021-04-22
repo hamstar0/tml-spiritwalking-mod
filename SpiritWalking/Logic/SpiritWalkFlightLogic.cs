@@ -47,16 +47,34 @@ DebugHelpers.Print( "lerpAng", lerpAng.ToString() );
 
 		public static void ApplySpiritWalkOpenAirFriction( Player player ) {
 			var config = SpiritWalkingConfig.Instance;
-			float openAirDrain = config.Get<float>( nameof( config.PerTickSpiritWalkEnergyCostInOpenAir ) );
 
-			SpiritWalkLogic.ApplyEnergyDraw( player, openAirDrain );
+			if( SpiritWalkingConfig.SpiritWalkUsesAnima ) {
+				float animaPercDraw = config.Get<float>( nameof(config.PerTickSpiritWalkAnimaPercentCostInOpenAir) );
+
+				SpiritWalkLogic.ApplyAnimaDraw( player, animaPercDraw );
+			} else {
+				if( SpiritWalkLogic.ManaCostDuration == 0 ) {
+					int manaDraw = config.Get<int>( nameof(config.PerRateSpiritWalkManaCostInOpenAir) );
+
+					SpiritWalkLogic.ApplyManaDraw( player, manaDraw );
+				}
+			}
 		}
 		
 		public static void ApplySpiritWalkCollisionFriction( Player player ) {
 			var config = SpiritWalkingConfig.Instance;
-			float frictionDrain = config.Get<float>( nameof( config.PerTickSpiritWalkFrictionAddedEnergyCost ) );
 
-			SpiritWalkLogic.ApplyEnergyDraw( player, frictionDrain );
+			if( SpiritWalkingConfig.SpiritWalkUsesAnima ) {
+				float animaPercDraw = config.Get<float>( nameof(config.PerTickSpiritWalkFrictionAddedAnimaPercentCost) );
+
+				SpiritWalkLogic.ApplyAnimaDraw( player, animaPercDraw );
+			} else {
+				if( SpiritWalkLogic.ManaCostDuration == 0 ) {
+					int manaDraw = config.Get<int>( nameof(config.PerRateSpiritWalkFrictionAddedManaCost) );
+
+					SpiritWalkLogic.ApplyManaDraw( player, manaDraw );
+				}
+			}
 		}
 	}
 }

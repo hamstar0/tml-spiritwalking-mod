@@ -50,17 +50,17 @@ namespace SpiritWalking.Items {
 
 		public override void ModifyTooltips( List<TooltipLine> tooltips ) {
 			var config = SpiritWalkingConfig.Instance;
-			float initNrgCost = config.Get<float>( nameof(config.InitialSpiritWalkEnergyCost) );
-			bool isAnima = config.Get<bool>( nameof(config.SpiritWalkUsesAnimaIfNecrotisAvailable) )
-				&& ModLoader.GetMod( "Necrotis" ) != null;
-
 			var lines = ShadowMirrorItem.TooltipLines.ToList();
 
-			if( isAnima ) {
-				lines.Add( "Requires "+(int)initNrgCost+"% anima to activate (by default)" );
+			if( SpiritWalkingConfig.SpiritWalkUsesAnima ) {
+				float initAnimaCost = config.Get<float>( nameof(config.InitialSpiritWalkAnimaPercentCost) );
+
+				lines.Add( "Requires "+(int)initAnimaCost+"% anima to activate (by default)" );
 				lines.Add( "Spirit walking drains anima while active" );
 			} else {
-				lines.Add( "Requires "+(int)initNrgCost+" mana to activate (by default)" );
+				int initManaCost = config.Get<int>( nameof(config.InitialSpiritWalkManaCost) );
+
+				lines.Add( "Requires "+initManaCost+" mana to activate (by default)" );
 				lines.Add( "Spirit walking drains mana while active" );
 			}
 

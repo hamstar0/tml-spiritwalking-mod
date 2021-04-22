@@ -9,9 +9,10 @@ namespace SpiritWalking.Logic {
 		public static void EmitSpiritParticles(
 					Vector2 position,
 					Vector2 direction,
-					int particles ) {
+					int particles,
+					int radius = 16 ) {
 					//bool wide=false ) {
-			int radius = 16;//wide ? 48 : 16;
+			//int radius = 16;//wide ? 48 : 16;
 			float speedScale = 1f;//wide ? 2f : 1f;
 			float scale = 1.4f;//wide ? 2.4f : 1.4f;
 

@@ -4,22 +4,24 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using SpiritWalking.Logic;
-
+using Microsoft.Xna.Framework;
 
 namespace SpiritWalking.Items {
 	public class ShadowMirrorItem : ModItem {
 		public static readonly string[] TooltipLines = new string[] {
 			"Activates 'spirit walking' on use",
 			"When spirit walking, use the arrow keys to navigate",
-			"Press 'jump' while spirit walking to return (also causes a short dash)",
+			"Press 'jump' while spirit walking to return (also performs a spirit dash)",
 		};
 
 		public static readonly string[] TooltipQuoteLines  = new string[] {
 			"\"Let my spirit carry me.\"",
-			"\"I am a fluffy pink bunny!\"",
+			//"\"Why do I see a pink bunny?\"",
 			"\"I dreamt I was a butterfly.\"",
 			"\"Break on through to the other side.\""
 		};
+
+		private static int TooltipQuoteLineIdx = 0;
 		
 
 
@@ -27,7 +29,9 @@ namespace SpiritWalking.Items {
 
 		public override void SetStaticDefaults() {
 			this.DisplayName.SetDefault( "Shadow Mirror" );
-			this.Tooltip.SetDefault( string.Join("\n", ShadowMirrorItem.TooltipLines) );
+			//this.Tooltip.SetDefault( string.Join("\n", ShadowMirrorItem.TooltipLines) );
+
+			ShadowMirrorItem.TooltipQuoteLineIdx = Main.rand.Next( ShadowMirrorItem.TooltipQuoteLines.Length );
 		}
 
 		public override void SetDefaults() {
@@ -53,21 +57,49 @@ namespace SpiritWalking.Items {
 			var lines = ShadowMirrorItem.TooltipLines.ToList();
 
 			if( isAnima ) {
-				string initNrgCostPerc = ((int)(initNrgCost * 100f)).ToString();
-
-				lines.Insert( 3, "Requires "+initNrgCostPerc+"% anima to activate (by default)" );
-				lines.Insert( 4, "Spirit walking drains anima while active" );
+				lines.Add( "Requires "+(int)initNrgCost+"% anima to activate (by default)" );
+				lines.Add( "Spirit walking drains anima while active" );
 			} else {
-				lines.Insert( 3, "Requires "+(int)initNrgCost+" mana to activate (by default)" );
-				lines.Insert( 4, "Spirit walking drains mana while active" );
+				lines.Add( "Requires "+(int)initNrgCost+" mana to activate (by default)" );
+				lines.Add( "Spirit walking drains mana while active" );
 			}
 
-			lines.Insert( 5, "Collisions or contact with open air cause faster drain" );
+			lines.Add( "Collisions or contact with open air cause faster drain" );
 
-			int randQuoteIdx = Main.rand.Next( ShadowMirrorItem.TooltipQuoteLines .Length );
-			lines.Add( ShadowMirrorItem.TooltipQuoteLines [randQuoteIdx] );
+			lines.Add( ShadowMirrorItem.TooltipQuoteLines[ShadowMirrorItem.TooltipQuoteLineIdx] );
+
+			//
+
+			IEnumerable<TooltipLine> tooltipLines = lines.Select(
+				(line, i) => new TooltipLine( this.mod, "ShadowMirror_"+i, line )
+			);
+
+			tooltips.InsertRange( 1, tooltipLines );
 		}
 
+
+		////////////////
+
+		public override void HoldItem( Player player ) {
+			if( player.itemAnimation <= 0 ) {
+				return;
+			}
+
+			Vector2 pos = player.Center;
+			Vector2 offset = player.direction > 0
+				? new Vector2( 16, -16 )
+				: new Vector2( -16, -16 );
+			pos += player.gravDir > 0
+				? offset
+				: new Vector2( offset.X, -offset.Y );
+
+			SpiritWalkFxLogic.EmitSpiritParticles(
+				position: pos,
+				direction: default,
+				particles: 1,
+				radius: 6
+			);
+		}
 
 		////////////////
 
@@ -78,6 +110,7 @@ namespace SpiritWalking.Items {
 
 			return base.UseItem( player );
 		}
+
 
 		////////////////
 

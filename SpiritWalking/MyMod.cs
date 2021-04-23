@@ -1,13 +1,14 @@
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.UI;
 using Terraria.ModLoader;
 using HamstarHelpers.Services.UI.LayerDisable;
-using System;
+
 
 namespace SpiritWalking {
-	public class SpiritWalkingMod : Mod {
+	public partial class SpiritWalkingMod : Mod {
 		public static string GithubUserName => "hamstar0";
 		public static string GithubProjectName => "tml-spiritwalking-mod";
 
@@ -33,6 +34,7 @@ namespace SpiritWalking {
 			if( Main.netMode != NetmodeID.Server && !Main.dedServ ) {
 				Main.instance.LoadNPC( NPCID.DungeonSpirit );
 
+				this.InitializeUI();
 				Mod hudMod = ModLoader.GetMod( "HUDElementsLib" );
 				if( hudMod != null ) {
 					Func<string, bool> hook = name => name == "Anima Gauge";
@@ -60,6 +62,18 @@ namespace SpiritWalking {
 			}
 		}
 
+
+		private void InitializeUI() {
+			Mod hudMod = ModLoader.GetMod( "HUDElementsLib" );
+			if( hudMod != null ) {
+				Func<string, bool> hook = name => name == "Anima Gauge";
+
+				hudMod.Call( "AddWidgetViewHook", hook );
+			}
+		}
+
+
+		////////////////
 
 		public override void ModifyLightingBrightness( ref float scale ) {
 			var plr = Main.LocalPlayer;

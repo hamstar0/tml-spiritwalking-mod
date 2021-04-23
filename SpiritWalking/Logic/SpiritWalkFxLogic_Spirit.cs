@@ -48,7 +48,7 @@ namespace SpiritWalking.Logic {
 
 			var data = new DrawData(
 				texture: tex,
-				position: player.Center - Main.screenPosition,
+				position: myplayer.FlightProjectile.Center - Main.screenPosition,
 				sourceRect: new Rectangle( 0, texHeight * SpiritWalkFxLogic.SpiritFrame, texWidth, texHeight ),
 				color: Color.White,
 				rotation: rad,

@@ -1,21 +1,32 @@
+using System;
 using Terraria;
-using HamstarHelpers.Classes.Loadable;
 using HamstarHelpers.Helpers.Debug;
 
 
 namespace SpiritWalking.Logic {
-	internal partial class SpiritWalkPelletsLogic : ILoadable {
-		private static int BaseSeed;
+	internal partial class SpiritWalkPelletsLogic {
+		public static int ReverseInt( int num ) {
+			int result = 0;
+			while( num > 0 ) {
+				result = result * 10 + num % 10;
+				num /= 10;
+			}
+			return result;
+		}
 
 
 
-		////////////////
+		public static (bool isPellet, bool isBad) IsPelletTile( int tileX, int tileY ) {
+			ulong seedInt = (ulong)(tileX + (tileY << 16));
+			//ulong seed = (ulong)seedInt + ((ulong)SpiritWalkPelletsLogic.ReverseInt(seedInt) << 32);
+			ulong seed = seedInt;
+			seed += (seed * seedInt) + seedInt;
+			seed += (seed * seedInt) + seedInt;
+			seed += (seed * seedInt) + seedInt;
 
-		public static (bool isPellet, bool isBad) IsPelletTile( Player player, int tileX, int tileY ) {
-			int seed = SpiritWalkPelletsLogic.BaseSeed + tileX + (tileY << 16);
-			uint seedHash = (uint)seed.GetHashCode();
-			double valDbl = (double)seedHash / (double)uint.MaxValue;
-			float val = (float)valDbl;
+			//var rand = new Random( seed );
+			//float val = (float)rand.NextDouble();
+			float val = Utils.RandomFloat( ref seed );
 
 			var config = SpiritWalkingConfig.Instance;
 			float chanceOfPelletPerTile = config.Get<float>( nameof( config.ChanceOfPelletPerTile ) );
@@ -28,16 +39,5 @@ namespace SpiritWalking.Logic {
 				isBad: badVal < chanceOfBadPellet
 			);
 		}
-
-
-		////////////////
-
-		public void OnModsLoad() {
-			SpiritWalkPelletsLogic.BaseSeed = Main.clientUUID.GetHashCode();
-		}
-
-		public void OnModsUnload() { }
-
-		public void OnPostModsLoad() { }
 	}
 }

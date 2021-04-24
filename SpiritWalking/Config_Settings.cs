@@ -15,5 +15,15 @@ namespace SpiritWalking {
 		//
 
 		public bool OpenAirAllowsEngagingSpiritWalk { get; set; } = false;
+
+		//
+
+		[Range( 0f, 1f )]
+		[DefaultValue( 1f / 45f )]
+		public float ChanceOfPelletPerTile { get; set; } = 1f / 45f;
+
+		[Range( 0f, 1f )]
+		[DefaultValue( 1f / 5f )]
+		public float ChanceOfBadPelletPerPellet { get; set; } = 1f / 5f;
 	}
 }

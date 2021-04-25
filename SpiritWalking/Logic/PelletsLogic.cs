@@ -32,7 +32,7 @@ namespace SpiritWalking.Logic {
 			float chanceOfPelletPerTile = config.Get<float>( nameof( config.ChanceOfPelletPerTile ) );
 			float chanceOfBadPellet = config.Get<float>( nameof( config.ChanceOfBadPelletPerPellet ) );
 
-			float badVal = ( val - chanceOfPelletPerTile ) / ( 1f - chanceOfPelletPerTile );
+			float badVal = val / chanceOfPelletPerTile;
 
 			return (
 				isPellet: val < chanceOfPelletPerTile,

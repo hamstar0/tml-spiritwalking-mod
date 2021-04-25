@@ -19,11 +19,11 @@ namespace SpiritWalking {
 		//
 
 		[Range( 0f, 1f )]
-		[DefaultValue( 1f / 45f )]
-		public float ChanceOfPelletPerTile { get; set; } = 1f / 45f;
+		[DefaultValue( 1f / 60f )]
+		public float ChanceOfPelletPerTile { get; set; } = 1f / 60f;
 
 		[Range( 0f, 1f )]
-		[DefaultValue( 1f / 5f )]
-		public float ChanceOfBadPelletPerPellet { get; set; } = 1f / 5f;
+		[DefaultValue( 1f / 4f )]
+		public float ChanceOfBadPelletPerPellet { get; set; } = 1f / 4f;
 	}
 }

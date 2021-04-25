@@ -102,6 +102,8 @@ namespace SpiritWalking.Logic {
 
 			SpiritWalkFxLogic.Deactivate( player );
 
+			SpiritWalkPelletsLogic.FlushCache();
+
 			//
 
 			myplayer.IsSpiritWalking = false;

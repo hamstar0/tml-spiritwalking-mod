@@ -8,6 +8,10 @@ using Terraria.ModLoader;
 namespace SpiritWalking {
 	class SpiritWalkingWorld : ModWorld {
 		public override void PostDrawTiles() {
+			if( !Main.LocalPlayer.GetModPlayer<SpiritWalkingPlayer>().IsSpiritWalking ) {
+				return;
+			}
+
 			int scrMinX = (int)Main.screenPosition.X / 16;
 			int scrMinY = (int)Main.screenPosition.Y / 16;
 			int scrWid = Main.screenWidth / 16;

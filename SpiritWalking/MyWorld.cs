@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.Xna.Framework;
 using SpiritWalking.Logic;
 using Terraria;
 using Terraria.ModLoader;
@@ -21,26 +20,11 @@ namespace SpiritWalking {
 
 			for( int i=scrMinX; i<scrMaxX; i++ ) {
 				for( int j=scrMinY; j<scrMaxY; j++ ) {
-					this.DrawPelletIf( i, j );
-				}
-			}
-		}
-
-
-		////////////////
-
-		private void DrawPelletIf( int tileX, int tileY ) {
-			Tile tile = Main.tile[ tileX, tileY ];
-			if( tile == null ) { return; }
-			if( tile.active() == true ) { return; }
-
-			(bool isPellet, bool isBad) p = SpiritWalkPelletsLogic.IsPelletTile( tileX, tileY );
-			
-			if( p.isPellet ) {
-				if( p.isBad ) {
-					Dust.QuickDust( new Point(tileX, tileY), Color.Red );
-				} else {
-					Dust.QuickDust( new Point(tileX, tileY), Color.Cyan );
+					(bool isPellet, bool isBad) pellet = SpiritWalkPelletsLogic.DrawPelletIf( i, j );
+					
+					if( SpiritWalkPelletsLogic.IsPelletNearPlayer(i, j, pellet.isBad) ) {
+						SpiritWalkPelletsLogic.PickupPellet( i, j, pellet.isBad );
+					}
 				}
 			}
 		}

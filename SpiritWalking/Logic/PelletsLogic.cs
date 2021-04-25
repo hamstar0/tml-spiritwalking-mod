@@ -13,10 +13,10 @@ namespace SpiritWalking.Logic {
 		////////////////
 
 		public static (bool isPellet, bool isBad) IsPelletTile( int tileX, int tileY ) {
-			ulong seedInt = (ulong)(tileX + (tileY << 16));
+			ulong coord = (ulong)(tileX + (tileY << 16));
 
-			if( SpiritWalkPelletsLogic.CachedPellets.ContainsKey(seedInt) ) {
-				bool? cachedResult = SpiritWalkPelletsLogic.CachedPellets[ seedInt ];
+			if( SpiritWalkPelletsLogic.CachedPellets.ContainsKey(coord) ) {
+				bool? cachedResult = SpiritWalkPelletsLogic.CachedPellets[ coord ];
 
 				if( cachedResult.HasValue ) {
 					return (true, cachedResult.Value);
@@ -25,14 +25,30 @@ namespace SpiritWalking.Logic {
 				}
 			}
 
-			ulong seed = seedInt;
-			seed += (seed * seedInt) + seedInt;
+			(bool isPellet, bool isBad) result = SpiritWalkPelletsLogic.IsPelletCoordUncached( coord );
+
+			SpiritWalkPelletsLogic.CachedPellets[coord] = result.isPellet
+				? result.isBad
+				: (bool?)null;
+
+			return result;
+		}
+
+		public static void FlushCache() {
+			SpiritWalkPelletsLogic.CachedPellets.Clear();
+		}
+
+		////
+
+		public static (bool isPellet, bool isBad) IsPelletCoordUncached( ulong coord ) {
+			ulong seed = coord;
+			seed += (seed * coord) + coord;
 			seed = seed >> 1;
-			seed += (seed * seedInt) + seedInt;
+			seed += (seed * coord) + coord;
 			seed = seed >> 1;
-			seed += (seed * seedInt) + seedInt;
+			seed += (seed * coord) + coord;
 			seed = seed >> 1;
-			seed += (seed * seedInt) + seedInt;
+			seed += (seed * coord) + coord;
 			seed = Utils.RandomNextSeed( seed );
 
 			//var rand = new Random( seed );
@@ -50,16 +66,25 @@ namespace SpiritWalking.Logic {
 				isBad: badVal < chanceOfBadPellet
 			);
 
-			SpiritWalkPelletsLogic.CachedPellets[seedInt] = result.isPellet
-				? result.isBad
-				: (bool?)null;
-
 			return result;
 		}
 
 
-		public static void FlushCache() {
-			SpiritWalkPelletsLogic.CachedPellets.Clear();
+		////////////////
+		
+		public static bool IsPelletNearPlayer( int tileX, int tileY, bool isBad ) {
+			int plrTileX = (int)Main.LocalPlayer.Center.X / 16;
+			int plrTileY = (int)Main.LocalPlayer.Center.Y / 16;
+
+			int diffX = plrTileX - tileX;
+			int diffY = plrTileY - tileY;
+			int distSqr = (diffX * diffX) + (diffY * diffY);
+
+			if( isBad ) {
+				return distSqr < 1600;	//40
+			} else {
+				return distSqr < 144;	//12
+			}
 		}
 	}
 }

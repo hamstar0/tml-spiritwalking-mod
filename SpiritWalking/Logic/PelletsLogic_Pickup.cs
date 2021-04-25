@@ -15,7 +15,7 @@ namespace SpiritWalking.Logic {
 				SpiritWalkPelletsLogic.ApplyGoodPellet();
 			}
 
-			myplayer.EatenPellets.Add( coord );
+			myplayer.EatenPelletCoords.Add( coord );
 
 			SpiritWalkPelletsLogic.FlushCache();
 		}
@@ -27,7 +27,7 @@ namespace SpiritWalking.Logic {
 			var config = SpiritWalkingConfig.Instance;
 
 			if( SpiritWalkingConfig.SpiritWalkUsesAnima ) {
-				int animaGain = config.Get<int>( nameof(config.GoodPelletAnimaPercentGain) );
+				float animaGain = config.Get<float>( nameof(config.GoodPelletAnimaPercentGain) );
 				
 				SpiritWalkPelletsLogic.ApplyPelletGain_Necrotis( animaGain );
 			} else {
@@ -42,7 +42,7 @@ namespace SpiritWalking.Logic {
 			var config = SpiritWalkingConfig.Instance;
 			
 			if( SpiritWalkingConfig.SpiritWalkUsesAnima ) {
-				int animaGain = config.Get<int>( nameof(config.BadPelletAnimaGain) );
+				float animaGain = config.Get<float>( nameof(config.BadPelletAnimaGain) );
 
 				SpiritWalkPelletsLogic.ApplyPelletGain_Necrotis( animaGain );
 			} else {
@@ -56,7 +56,7 @@ namespace SpiritWalking.Logic {
 
 		////////////////
 
-		private static void ApplyPelletGain_Necrotis( int gain ) {
+		private static void ApplyPelletGain_Necrotis( float gain ) {
 			Necrotis.NecrotisAPI.SubtractAnimaPercentFromPlayer( Main.LocalPlayer, -gain, false );
 		}
 	}

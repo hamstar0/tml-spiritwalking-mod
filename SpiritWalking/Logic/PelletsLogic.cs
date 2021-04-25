@@ -13,7 +13,8 @@ namespace SpiritWalking.Logic {
 		////////////////
 
 		public static (bool isPellet, bool isBad) IsPelletTile( int tileX, int tileY ) {
-			ulong coord = (ulong)(tileX + (tileY << 16));
+			int coordInt = tileX + (tileY << 16);
+			ulong coord = (ulong)coordInt;
 
 			if( SpiritWalkPelletsLogic.CachedPellets.ContainsKey(coord) ) {
 				bool? cachedResult = SpiritWalkPelletsLogic.CachedPellets[ coord ];
@@ -24,6 +25,16 @@ namespace SpiritWalking.Logic {
 					return (false, false);
 				}
 			}
+
+			//
+
+			var myplayer = Main.LocalPlayer.GetModPlayer<SpiritWalkingPlayer>();
+
+			if( myplayer.EatenPelletCoords.Contains(coordInt) ) {
+				return (false, false);
+			}
+
+			//
 
 			(bool isPellet, bool isBad) result = SpiritWalkPelletsLogic.IsPelletCoordUncached( coord );
 
@@ -38,9 +49,10 @@ namespace SpiritWalking.Logic {
 			SpiritWalkPelletsLogic.CachedPellets.Clear();
 		}
 
+
 		////
 
-		public static (bool isPellet, bool isBad) IsPelletCoordUncached( ulong coord ) {
+		private static (bool isPellet, bool isBad) IsPelletCoordUncached( ulong coord ) {
 			ulong seed = coord;
 			seed += (seed * coord) + coord;
 			seed = seed >> 1;
@@ -73,11 +85,11 @@ namespace SpiritWalking.Logic {
 		////////////////
 		
 		public static bool IsPelletNearPlayer( int tileX, int tileY, bool isBad ) {
-			int plrTileX = (int)Main.LocalPlayer.Center.X / 16;
-			int plrTileY = (int)Main.LocalPlayer.Center.Y / 16;
+			int plrWldX = (int)Main.LocalPlayer.Center.X;
+			int plrWldY = (int)Main.LocalPlayer.Center.Y;
 
-			int diffX = plrTileX - tileX;
-			int diffY = plrTileY - tileY;
+			int diffX = plrWldX - (tileX * 16);
+			int diffY = plrWldY - (tileY * 16);
 			int distSqr = (diffX * diffX) + (diffY * diffY);
 
 			if( isBad ) {

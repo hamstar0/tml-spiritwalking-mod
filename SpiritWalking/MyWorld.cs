@@ -21,7 +21,10 @@ namespace SpiritWalking {
 			for( int i=scrMinX; i<scrMaxX; i++ ) {
 				for( int j=scrMinY; j<scrMaxY; j++ ) {
 					(bool isPellet, bool isBad) pellet = SpiritWalkPelletsLogic.DrawPelletIf( i, j );
-					
+					if( !pellet.isPellet ) {
+						continue;
+					}
+
 					if( SpiritWalkPelletsLogic.IsPelletNearPlayer(i, j, pellet.isBad) ) {
 						SpiritWalkPelletsLogic.PickupPellet( i, j, pellet.isBad );
 					}

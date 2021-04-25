@@ -6,7 +6,6 @@ using HamstarHelpers.Helpers.Debug;
 namespace SpiritWalking.Logic {
 	internal partial class SpiritWalkFlightLogic {
 		public static void SteerFlight( SpiritWalkingPlayer myplayer, bool down, bool up, bool left, bool right ) {
-			float rotStep = 0.03f;
 			bool isFinalDash = myplayer.FinalDashElapsed > 0;
 
 			if( !isFinalDash ) {
@@ -16,6 +15,9 @@ namespace SpiritWalking.Logic {
 					SpiritWalkFlightLogic.ApplyFlightSpeedBoostIf( myplayer );
 				}
 			}
+
+			var config = SpiritWalkingConfig.Instance;
+			float rotStep = config.Get<float>( nameof(config.SpiritWalkSteering) );	//0.03f;
 
 			if( left ) {
 				myplayer.IntendedFlightVelocity = myplayer.IntendedFlightVelocity.RotatedBy( -rotStep );

@@ -1,4 +1,5 @@
 using System;
+using Microsoft.Xna.Framework;
 using Terraria;
 using HamstarHelpers.Helpers.Debug;
 
@@ -30,11 +31,14 @@ namespace SpiritWalking.Logic {
 			}
 
 			int coord = tileX + (tileY << 16);
+			var pelletPos = new Vector2( (tileX * 16) + 8, (tileY * 16) + 8 );
 
 			if( isBad ) {
 				SpiritWalkPelletsLogic.ApplyBadPellet();
+				SpiritWalkFxLogic.EmitBadPelletParticles( pelletPos );
 			} else {
 				SpiritWalkPelletsLogic.ApplyGoodPellet();
+				SpiritWalkFxLogic.EmitGoodPelletParticles( pelletPos );
 			}
 
 			myplayer.EatenPelletCoords.Add( coord );
@@ -51,9 +55,9 @@ namespace SpiritWalking.Logic {
 			var config = SpiritWalkingConfig.Instance;
 
 			if( SpiritWalkingConfig.SpiritWalkUsesAnima ) {
-				float animaGain = config.Get<float>( nameof(config.GoodPelletAnimaPercentGain) );
+				float animaLargePercGain = config.Get<float>( nameof(config.GoodPelletAnimaPercentGain) );
 				
-				SpiritWalkPelletsLogic.ApplyPelletGain_Necrotis( animaGain );
+				SpiritWalkPelletsLogic.ApplyPelletGain_Necrotis( animaLargePercGain );
 			} else {
 				int manaGain = config.Get<int>( nameof(config.GoodPelletManaGain) );
 
@@ -66,9 +70,9 @@ namespace SpiritWalking.Logic {
 			var config = SpiritWalkingConfig.Instance;
 			
 			if( SpiritWalkingConfig.SpiritWalkUsesAnima ) {
-				float animaGain = config.Get<float>( nameof(config.BadPelletAnimaGain) );
+				float animaLargePercGain = config.Get<float>( nameof(config.BadPelletAnimaGain) );
 
-				SpiritWalkPelletsLogic.ApplyPelletGain_Necrotis( animaGain );
+				SpiritWalkPelletsLogic.ApplyPelletGain_Necrotis( animaLargePercGain );
 			} else {
 				int manaGain = config.Get<int>( nameof(config.BadPelletManaGain) );
 
@@ -80,8 +84,10 @@ namespace SpiritWalking.Logic {
 
 		////////////////
 
-		private static void ApplyPelletGain_Necrotis( float gain ) {
-			Necrotis.NecrotisAPI.SubtractAnimaPercentFromPlayer( Main.LocalPlayer, -gain, false );
+		private static void ApplyPelletGain_Necrotis( float largePercentGain ) {
+			float percGain = largePercentGain / 100f;
+
+			Necrotis.NecrotisAPI.SubtractAnimaPercentFromPlayer( Main.LocalPlayer, -percGain, false );
 		}
 	}
 }

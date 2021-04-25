@@ -48,5 +48,52 @@ namespace SpiritWalking.Logic {
 			dust.noGravity = true;
 			//Dust.QuickDust( offsetPos, Color.Cyan );
 		}
+
+
+		////
+
+		public static void EmitGoodPelletParticles( Vector2 position, bool playSound=true ) {
+			for( int i = 0; i < 16; i++ ) {
+				int idx = Dust.NewDust(
+					Position: position - new Vector2(8, 8),
+					Width: 16,
+					Height: 16,
+					Type: 59,
+					SpeedX: 0f,
+					SpeedY: 0f,
+					Alpha: 0,
+					newColor: Color.Cyan,
+					Scale: 2f
+				);
+				Main.dust[idx].fadeIn = 2.5f;
+				Main.dust[idx].noGravity = true;
+			}
+
+			if( playSound ) {
+				Main.PlaySound( SoundID.Chat, position );
+			}
+		}
+
+		public static void EmitBadPelletParticles( Vector2 position, bool playSound=true ) {
+			for( int i = 0; i < 24; i++ ) {
+				int idx = Dust.NewDust(
+					Position: position - new Vector2(12, 12),
+					Width: 24,
+					Height: 24,
+					Type: 60,
+					SpeedX: 0f,
+					SpeedY: 0f,
+					Alpha: 0,
+					newColor: Color.Red,
+					Scale: 2f
+				);
+				Main.dust[idx].fadeIn = 2.5f;
+				Main.dust[idx].noGravity = true;
+			}
+
+			if( playSound ) {
+				Main.PlaySound( SoundID.Chat, position );
+			}
+		}
 	}
 }

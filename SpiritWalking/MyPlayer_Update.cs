@@ -13,6 +13,12 @@ namespace SpiritWalking {
 			SpiritWalkLogic.Update( this, this.IsSpiritWalking );
 		}
 
+		public override void UpdateDead() {
+			if( this.IsSpiritWalking ) {
+				SpiritWalkLogic.DeactivateIf( this.player, false );
+			}
+		}
+
 
 		////////////////
 

@@ -5,24 +5,25 @@ using Terraria.ModLoader.Config;
 namespace SpiritWalking {
 	public partial class SpiritWalkingConfig : ModConfig {
 		[Range( 0f, 1f )]
-		[DefaultValue( 1f / 60f )]
-		public float ChanceOfPelletPerTile { get; set; } = 1f / 60f;
+		[DefaultValue( 1f / 80f )]
+		public float ChanceOfPelletPerTile { get; set; } = 1f / 80f;
 
 		[Range( 0f, 1f )]
-		[DefaultValue( 1f / 4f )]
-		public float ChanceOfBadPelletPerPellet { get; set; } = 1f / 4f;
+		[DefaultValue( 1f / 5f )]
+		public float ChanceOfBadPelletPerPellet { get; set; } = 1f / 5f;
 
 		//
 
 		[Range( 0f, 100f )]
-		[DefaultValue( 7f )]
+		[DefaultValue( 10f )]
 		[CustomModConfigItem( typeof(MyFloatInputElement) )]
-		public float GoodPelletAnimaPercentGain { get; set; } = 7f;
+		public float GoodPelletAnimaPercentGain { get; set; } = 10f;
 
 		[Range( -100f, 0f )]
 		[DefaultValue( -33f )]
 		[CustomModConfigItem( typeof(MyFloatInputElement) )]
 		public float BadPelletAnimaGain { get; set; } = -33f;
+
 
 		[Range( 0, 200 )]
 		[DefaultValue( 20 )]

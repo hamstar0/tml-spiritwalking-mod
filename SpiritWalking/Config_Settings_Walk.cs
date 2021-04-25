@@ -26,5 +26,9 @@ namespace SpiritWalking {
 		[Range( 0, 128 )]
 		[DefaultValue( 12 )]
 		public int FinalDashTileDistance { get; set; } = 12;
+
+		[Range( 0.001f, 1f )]
+		[DefaultValue( 0.04f )]
+		public float SpiritWalkSteering { get; set; } = 0.04f;
 	}
 }

@@ -29,6 +29,9 @@ namespace SpiritWalking {
 
 		internal int FinalDashElapsed = 0;
 
+
+		internal int NoPelletPickupDuration = 0;
+
 		////
 
 		internal ISet<int> EatenPelletCoords = new HashSet<int>();

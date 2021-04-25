@@ -6,7 +6,7 @@ using HamstarHelpers.Services.OverlaySounds;
 
 namespace SpiritWalking.Logic {
 	internal partial class SpiritWalkFxLogic {
-		public static void Activate( Player player ) {
+		public static void ActivationFx( Player player ) {
 			SpiritWalkFxLogic.FlightSoundLoop = OverlaySound.Create(
 				sourceMod: SpiritWalkingMod.Instance,
 				soundPath: "Sounds/rocket",
@@ -17,7 +17,7 @@ namespace SpiritWalking.Logic {
 		}
 
 
-		public static void Deactivate( Player player ) {
+		public static void DeactivationFx( Player player ) {
 			SpiritWalkFxLogic.FlightSoundLoop.StopImmediately();
 		}
 	}

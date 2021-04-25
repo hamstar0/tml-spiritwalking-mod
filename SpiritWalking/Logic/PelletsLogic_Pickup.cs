@@ -5,8 +5,30 @@ using HamstarHelpers.Helpers.Debug;
 
 namespace SpiritWalking.Logic {
 	internal partial class SpiritWalkPelletsLogic {
-		public static void PickupPellet( int tileX, int tileY, bool isBad ) {
+		public static bool IsPelletNearPlayer( int tileX, int tileY, bool isBad ) {
+			int plrWldX = (int)Main.LocalPlayer.Center.X;
+			int plrWldY = (int)Main.LocalPlayer.Center.Y;
+
+			int diffX = plrWldX - ( tileX * 16 );
+			int diffY = plrWldY - ( tileY * 16 );
+			int distSqr = ( diffX * diffX ) + ( diffY * diffY );
+
+			if( isBad ) {
+				return distSqr < 1600;  //40
+			} else {
+				return distSqr < 400;   //20
+			}
+		}
+
+
+		////////////////
+
+		public static void PickupPelletIf( int tileX, int tileY, bool isBad ) {
 			var myplayer = Main.LocalPlayer.GetModPlayer<SpiritWalkingPlayer>();
+			if( myplayer.NoPelletPickupDuration > 0 ) {
+				return;
+			}
+
 			int coord = tileX + (tileY << 16);
 
 			if( isBad ) {
@@ -17,7 +39,9 @@ namespace SpiritWalking.Logic {
 
 			myplayer.EatenPelletCoords.Add( coord );
 
-			SpiritWalkPelletsLogic.FlushCache();
+			//
+
+			SpiritWalkPelletsLogic.CachedRevealedPellets.Remove( (ulong)coord );
 		}
 
 

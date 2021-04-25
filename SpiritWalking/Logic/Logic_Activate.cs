@@ -72,7 +72,9 @@ namespace SpiritWalking.Logic {
 
 			SpiritWalkLogic.ActivatePlayerForm( player );
 
-			SpiritWalkFxLogic.Activate( player );
+			SpiritWalkFxLogic.ActivationFx( player );
+
+			SpiritWalkPelletsLogic.ActivationPreparations( myplayer );
 
 			//
 
@@ -100,7 +102,9 @@ namespace SpiritWalking.Logic {
 
 			SpiritWalkFlightLogic.DeactivateFlightBehavior( player );
 
-			SpiritWalkFxLogic.Deactivate( player );
+			SpiritWalkFxLogic.DeactivationFx( player );
+
+			//
 
 			SpiritWalkPelletsLogic.FlushCache();
 

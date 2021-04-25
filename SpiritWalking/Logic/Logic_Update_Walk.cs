@@ -60,7 +60,9 @@ namespace SpiritWalking.Logic {
 
 			//
 
-			SpiritWalkFlightLogic.Update( myplayer );
+			SpiritWalkFlightLogic.UpdateWalk( myplayer );
+
+			SpiritWalkPelletsLogic.UpdateWalk( myplayer );
 		}
 
 		////

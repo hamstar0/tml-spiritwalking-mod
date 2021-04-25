@@ -26,7 +26,7 @@ namespace SpiritWalking {
 					}
 
 					if( SpiritWalkPelletsLogic.IsPelletNearPlayer(i, j, pellet.isBad) ) {
-						SpiritWalkPelletsLogic.PickupPellet( i, j, pellet.isBad );
+						SpiritWalkPelletsLogic.PickupPelletIf( i, j, pellet.isBad );
 					}
 				}
 			}

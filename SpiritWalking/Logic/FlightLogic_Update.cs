@@ -12,7 +12,7 @@ namespace SpiritWalking.Logic {
 
 		////////////////
 
-		public static void Update( SpiritWalkingPlayer myplayer ) {
+		public static void UpdateWalk( SpiritWalkingPlayer myplayer ) {
 			SpiritWalkFlightLogic.UpdateSpeedChanges( myplayer );
 
 			if( myplayer.FlightProjectile?.active != true ) {

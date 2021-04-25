@@ -46,11 +46,17 @@ namespace SpiritWalking.Logic {
 				SpiritWalkFxLogic.SpiritFrame %= frameCount;
 			}
 
+			bool isFlicker = ((myplayer.NoPelletPickupDuration / 10) % 2) != 0;
+			Color color = isFlicker
+				? Color.Transparent
+				: Color.White;
+			
+
 			var data = new DrawData(
 				texture: tex,
 				position: myplayer.FlightProjectile.Center - Main.screenPosition,
 				sourceRect: new Rectangle( 0, texHeight * SpiritWalkFxLogic.SpiritFrame, texWidth, texHeight ),
-				color: Color.White,
+				color: color,
 				rotation: rad,
 				origin: new Vector2( texWidth / 2, texHeight / 2 ),
 				scale: 1f,

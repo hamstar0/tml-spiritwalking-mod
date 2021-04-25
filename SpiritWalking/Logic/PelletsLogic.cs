@@ -6,7 +6,7 @@ using HamstarHelpers.Helpers.Debug;
 
 namespace SpiritWalking.Logic {
 	internal partial class SpiritWalkPelletsLogic {
-		private static IDictionary<ulong, bool?> CachedPellets = new Dictionary<ulong, bool?>();
+		private static IDictionary<ulong, bool?> CachedRevealedPellets = new Dictionary<ulong, bool?>();
 
 
 
@@ -16,8 +16,8 @@ namespace SpiritWalking.Logic {
 			int coordInt = tileX + (tileY << 16);
 			ulong coord = (ulong)coordInt;
 
-			if( SpiritWalkPelletsLogic.CachedPellets.ContainsKey(coord) ) {
-				bool? cachedResult = SpiritWalkPelletsLogic.CachedPellets[ coord ];
+			if( SpiritWalkPelletsLogic.CachedRevealedPellets.ContainsKey(coord) ) {
+				bool? cachedResult = SpiritWalkPelletsLogic.CachedRevealedPellets[ coord ];
 
 				if( cachedResult.HasValue ) {
 					return (true, cachedResult.Value);
@@ -38,7 +38,7 @@ namespace SpiritWalking.Logic {
 
 			(bool isPellet, bool isBad) result = SpiritWalkPelletsLogic.IsPelletCoordUncached( coord );
 
-			SpiritWalkPelletsLogic.CachedPellets[coord] = result.isPellet
+			SpiritWalkPelletsLogic.CachedRevealedPellets[coord] = result.isPellet
 				? result.isBad
 				: (bool?)null;
 
@@ -46,7 +46,7 @@ namespace SpiritWalking.Logic {
 		}
 
 		public static void FlushCache() {
-			SpiritWalkPelletsLogic.CachedPellets.Clear();
+			SpiritWalkPelletsLogic.CachedRevealedPellets.Clear();
 		}
 
 
@@ -79,24 +79,6 @@ namespace SpiritWalking.Logic {
 			);
 
 			return result;
-		}
-
-
-		////////////////
-		
-		public static bool IsPelletNearPlayer( int tileX, int tileY, bool isBad ) {
-			int plrWldX = (int)Main.LocalPlayer.Center.X;
-			int plrWldY = (int)Main.LocalPlayer.Center.Y;
-
-			int diffX = plrWldX - (tileX * 16);
-			int diffY = plrWldY - (tileY * 16);
-			int distSqr = (diffX * diffX) + (diffY * diffY);
-
-			if( isBad ) {
-				return distSqr < 1600;	//40
-			} else {
-				return distSqr < 144;	//12
-			}
 		}
 	}
 }

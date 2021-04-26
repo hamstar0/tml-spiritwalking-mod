@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Terraria;
 using HamstarHelpers.Helpers.Debug;
+using HamstarHelpers.Helpers.World;
 
 
 namespace SpiritWalking.Logic {
@@ -12,7 +13,7 @@ namespace SpiritWalking.Logic {
 
 		////////////////
 
-		public static (bool isPellet, bool isBad) IsPelletTile( int tileX, int tileY ) {
+		public static (bool isPellet, bool isBad) IsPelletTile( int tileX, int tileY, bool storeInCache=true ) {
 			int coordInt = tileX + (tileY << 16);
 			ulong coord = (ulong)coordInt;
 
@@ -28,19 +29,15 @@ namespace SpiritWalking.Logic {
 
 			//
 
-			var myplayer = Main.LocalPlayer.GetModPlayer<SpiritWalkingPlayer>();
-
-			if( myplayer.EatenPelletCoords.Contains(coordInt) ) {
-				return (false, false);
-			}
+			(bool isPellet, bool isBad) result = SpiritWalkPelletsLogic.IsPelletTile_Uncached( tileX, tileY, coord );
 
 			//
 
-			(bool isPellet, bool isBad) result = SpiritWalkPelletsLogic.IsPelletCoordUncached( coord );
-
-			SpiritWalkPelletsLogic.CachedRevealedPellets[coord] = result.isPellet
-				? result.isBad
-				: (bool?)null;
+			if( storeInCache ) {
+				SpiritWalkPelletsLogic.CachedRevealedPellets[coord] = result.isPellet
+					? result.isBad
+					: (bool?)null;
+			}
 
 			return result;
 		}
@@ -50,7 +47,31 @@ namespace SpiritWalking.Logic {
 		}
 
 
-		////
+		////////////////
+
+		private static (bool isPellet, bool isBad) IsPelletTile_Uncached( int tileX, int tileY, ulong coord ) {
+			Tile tile = Main.tile[ tileX, tileY ];
+
+			if( tile == null ) {
+				return (false, false);
+			}
+			if( tile.active() == true ) {
+				return (false, false);
+			}
+			if( tile.wall == 0 && tileY <= WorldHelpers.SurfaceLayerBottomTileY ) {
+				return (false, false);
+			}
+
+			var myplayer = Main.LocalPlayer.GetModPlayer<SpiritWalkingPlayer>();
+			if( myplayer.EatenPelletCoords.Contains((int)coord) ) {
+				return (false, false);
+			}
+
+			return SpiritWalkPelletsLogic.IsPelletCoordUncached( coord );
+		}
+
+
+		////////////////
 
 		private static (bool isPellet, bool isBad) IsPelletCoordUncached( ulong coord ) {
 			ulong seed = coord;

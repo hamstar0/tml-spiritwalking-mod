@@ -8,10 +8,6 @@ using HamstarHelpers.Helpers.Debug;
 namespace SpiritWalking.Logic {
 	internal partial class SpiritWalkPelletsLogic {
 		public static (bool isPellet, bool isBad) DrawPelletIf( int tileX, int tileY ) {
-			Tile tile = Main.tile[ tileX, tileY ];
-			if( tile == null ) { return default; }
-			if( tile.active() == true ) { return default; }
-
 			(bool isPellet, bool isBad) p = SpiritWalkPelletsLogic.IsPelletTile( tileX, tileY );
 			
 			if( p.isPellet ) {

@@ -70,7 +70,7 @@ namespace SpiritWalking.Logic {
 			}
 
 			if( playSound ) {
-				Main.PlaySound( SoundID.Chat, position );
+				Main.PlaySound( SoundID.MenuTick, position );
 			}
 		}
 
@@ -92,7 +92,7 @@ namespace SpiritWalking.Logic {
 			}
 
 			if( playSound ) {
-				Main.PlaySound( SoundID.Chat, position );
+				Main.PlaySound( SoundID.MenuTick, position );
 			}
 		}
 	}

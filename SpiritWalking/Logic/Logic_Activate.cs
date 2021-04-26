@@ -124,30 +124,29 @@ namespace SpiritWalking.Logic {
 
 		////////////////
 
-		//private static int PreWalkPlayerWidth = 0;
-		//private static int PreWalkPlayerHeight = 0;
+		private static int PreWalkPlayerWidth = 0;
+		private static int PreWalkPlayerHeight = 0;
+
+
+		//
 
 		private static void ActivatePlayerForm( Player player ) {
-			//var myplayer = player.GetModPlayer<SpiritWalkingPlayer>();
-
 			if( player.mount.Active ) {
 				player.ClearBuff( player.mount.BuffType );
 				player.mount.Dismount( player );
 			}
 
-			/*SpiritWalkLogic.PreWalkPlayerWidth = myplayer.player.width;
-			SpiritWalkLogic.PreWalkPlayerHeight = myplayer.player.height;
+			SpiritWalkLogic.PreWalkPlayerWidth = player.width;
+			SpiritWalkLogic.PreWalkPlayerHeight = player.height;
 
-			myplayer.player.width = 0;
-			myplayer.player.height = 0;*/
+			player.height = 0;
+			player.width = 0;
 		}
 
 
 		private static void DeactivatePlayerForm( Player player ) {
-			/*var myplayer = player.GetModPlayer<SpiritWalkingPlayer>();
-
-			myplayer.player.width = SpiritWalkLogic.PreWalkPlayerWidth;
-			myplayer.player.height = SpiritWalkLogic.PreWalkPlayerHeight;*/
+			player.height = SpiritWalkLogic.PreWalkPlayerHeight;
+			player.width = SpiritWalkLogic.PreWalkPlayerWidth;
 		}
 	}
 }

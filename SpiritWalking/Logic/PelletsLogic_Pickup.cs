@@ -15,7 +15,7 @@ namespace SpiritWalking.Logic {
 			int distSqr = ( diffX * diffX ) + ( diffY * diffY );
 
 			if( isBad ) {
-				return distSqr < 1600;  //40
+				return distSqr < 900;  //30
 			} else {
 				return distSqr < 400;   //20
 			}

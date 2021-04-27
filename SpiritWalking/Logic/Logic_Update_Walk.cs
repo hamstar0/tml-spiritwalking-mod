@@ -6,36 +6,7 @@ using HamstarHelpers.Services.Timers;
 
 namespace SpiritWalking.Logic {
 	internal partial class SpiritWalkLogic {
-		public static int ManaCostDuration { get; private set; } = 0;
-
-
-
-		////////////////
-
-		private static void ApplySpiritWalkCost( Player player ) {
-			var config = SpiritWalkingConfig.Instance;
-
-			if( SpiritWalkingConfig.SpiritWalkUsesAnima ) {
-				float animaPercCost = config.Get<float>( nameof(config.PerTickSpiritWalkAnimaPercentCost) );
-
-				SpiritWalkLogic.ApplyAnimaDraw( player, animaPercCost );
-			} else {
-				if( SpiritWalkLogic.ManaCostDuration == 0 ) {
-					int manaCost = config.Get<int>( nameof(config.PerRateSpiritWalkManaCost) );
-
-					SpiritWalkLogic.ApplyManaDraw( player, manaCost );
-				}
-			}
-		}
-
-
-		////
-
 		private static void UpdateForSpiritWalk( SpiritWalkingPlayer myplayer ) {
-			var config = SpiritWalkingConfig.Instance;
-
-			//
-
 			if( SpiritWalkLogic.IsUponOpenAir(myplayer.player) ) {
 				SpiritWalkFlightLogic.ApplySpiritWalkOpenAirFriction( myplayer.player );
 				SpiritWalkFxLogic.ApplySpiritWalkOpenAirFriction( myplayer.player );
@@ -43,14 +14,7 @@ namespace SpiritWalking.Logic {
 
 			//
 
-			int tickRate = config.Get<int>( nameof(config.SpiritWalkManaCostTickRate) );
-			if( SpiritWalkLogic.ManaCostDuration++ >= tickRate ) {
-				SpiritWalkLogic.ManaCostDuration = 0;
-			}
-
-			SpiritWalkLogic.ApplySpiritWalkCost( myplayer.player );
-
-			//
+			SpiritWalkLogic.UpdateSpiritWalkCost( myplayer.player );
 
 			SpiritWalkLogic.RunFinalDashIf( myplayer );
 
@@ -65,7 +29,8 @@ namespace SpiritWalking.Logic {
 			SpiritWalkPelletsLogic.UpdateWalk( myplayer );
 		}
 
-		////
+
+		////////////////
 
 		public static void UpdateRunSpeedsForSpiritWalk( SpiritWalkingPlayer myplayer ) {
 			myplayer.player.maxRunSpeed = 0;
@@ -73,12 +38,22 @@ namespace SpiritWalking.Logic {
 			myplayer.player.runAcceleration = 0;
 		}
 
-		private static void UpdateFlagsForSpiritWalk( SpiritWalkingPlayer myplayer ) {
+		private static void UpdatePlayerFlagsPostBuffsForSpiritWalk( SpiritWalkingPlayer myplayer ) {
 			myplayer.player.noItems = true;
 			myplayer.player.immune = true;
 			//myplayer.player.stoned = true;
 			myplayer.player.noFallDmg = true;
 			myplayer.player.gills = true;
+			myplayer.player.blackout = true;
+		}
+
+		private static void UpdatePlayerFlagsPostMiscForSpiritWalk( SpiritWalkingPlayer myplayer ) {
+			myplayer.player.nebulaLevelMana = 0;
+			myplayer.player.manaRegen = 0;
+			myplayer.player.manaRegenBonus = 0;
+			myplayer.player.manaRegenDelay = 2;
+			myplayer.player.manaRegenCount = 0;
+			myplayer.player.manaRegenBuff = false;
 		}
 
 		private static void UpdateItemHoldStyleForSpiritWalk( SpiritWalkingPlayer myplayer, Item item ) {

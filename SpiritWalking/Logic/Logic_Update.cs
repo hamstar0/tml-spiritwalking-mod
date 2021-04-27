@@ -18,20 +18,20 @@ namespace SpiritWalking.Logic {
 
 		private static bool CanSpiritWalkWithMana( Player player ) {
 			if( SpiritWalkLogic.ManaCostDuration > 0 ) {
-				return false;
+				return true;
 			}
 
 			var config = SpiritWalkingConfig.Instance;
 			int manaCostRate = config.Get<int>( nameof(config.PerRateSpiritWalkManaCost) );
 
-			return SpiritWalkLogic.HasMana( player, manaCostRate, out string status );
+			return SpiritWalkLogic.HasMana( player, manaCostRate, out string _ );
 		}
 
 		private static bool CanSpiritWalkWithAnima( Player player ) {
 			var config = SpiritWalkingConfig.Instance;
 			float animaCostRate = config.Get<float>( nameof(config.PerTickSpiritWalkAnimaPercentCost) );
 
-			return SpiritWalkLogic.HasAnima( player, animaCostRate, out string status );
+			return SpiritWalkLogic.HasAnima( player, animaCostRate, out string _ );
 		}
 
 
@@ -63,11 +63,21 @@ namespace SpiritWalking.Logic {
 			}
 		}
 
-		public static void UpdateBuffs( SpiritWalkingPlayer myplayer, bool isSpiritWalking ) {
+		////
+
+		public static void UpdatePlayerFlagsPostBuffs( SpiritWalkingPlayer myplayer, bool isSpiritWalking ) {
 			if( isSpiritWalking ) {
-				SpiritWalkLogic.UpdateFlagsForSpiritWalk( myplayer );
+				SpiritWalkLogic.UpdatePlayerFlagsPostBuffsForSpiritWalk( myplayer );
 			}
 		}
+
+		public static void UpdatePlayerFlagsPostMisc( SpiritWalkingPlayer myplayer, bool isSpiritWalking ) {
+			if( isSpiritWalking ) {
+				SpiritWalkLogic.UpdatePlayerFlagsPostMiscForSpiritWalk( myplayer );
+			}
+		}
+
+		////
 
 		public static void UpdateItemHoldStyle( SpiritWalkingPlayer myplayer, Item item, bool isSpiritWalking ) {
 			if( isSpiritWalking ) {

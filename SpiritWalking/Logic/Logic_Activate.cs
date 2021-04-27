@@ -72,7 +72,7 @@ namespace SpiritWalking.Logic {
 
 			SpiritWalkLogic.ActivatePlayerForm( player );
 
-			SpiritWalkFxLogic.ActivationFx( player );
+			SpiritWalkFxLogic.ActivationFx( myplayer );
 
 			SpiritWalkPelletsLogic.ActivationPreparations( myplayer );
 

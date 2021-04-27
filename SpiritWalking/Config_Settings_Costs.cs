@@ -23,8 +23,8 @@ namespace SpiritWalking {
 		public int InitialSpiritWalkManaCost { get; set; } = 20;
 
 		[Range( 0, 100 )]
-		[DefaultValue( 1 )]
-		public int SpiritWalkManaCostTickRate { get; set; } = 1;
+		[DefaultValue( 10 )]
+		public int SpiritWalkManaCostTickRate { get; set; } = 10;
 
 		[Range( 0, 100 )]
 		[DefaultValue( 1 )]

@@ -35,7 +35,9 @@ namespace SpiritWalking.Logic {
 		public static void ApplyManaDraw( Player player, int manaCost ) {
 			player.statMana -= (int)manaCost;
 
-			Main.LocalPlayer.ManaEffect( -manaCost );
+			if( manaCost > 1 ) {
+				Main.LocalPlayer.ManaEffect( -manaCost );
+			}
 		}
 
 

@@ -11,8 +11,17 @@ namespace SpiritWalking {
 			SpiritWalkLogic.UpdateItemHoldStyle( myplayer, item, myplayer.IsSpiritWalking );
 		}
 
+		////
 
 		public override bool CanPickup( Item item, Player player ) {
+			var myplayer = player.GetModPlayer<SpiritWalkingPlayer>();
+
+			return !myplayer.IsSpiritWalking;
+		}
+
+		////
+
+		public override bool CanUseItem( Item item, Player player ) {
 			var myplayer = player.GetModPlayer<SpiritWalkingPlayer>();
 
 			return !myplayer.IsSpiritWalking;

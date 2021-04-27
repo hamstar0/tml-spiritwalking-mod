@@ -22,8 +22,20 @@ namespace SpiritWalking {
 
 		////////////////
 
+		public override bool PreItemCheck() {
+			return !this.IsSpiritWalking;
+		}
+
+
+		////////////////
+
 		public override void PostUpdateBuffs() {
-			SpiritWalkLogic.UpdateBuffs( this, this.IsSpiritWalking );
+			SpiritWalkLogic.UpdatePlayerFlagsPostBuffs( this, this.IsSpiritWalking );
+		}
+
+		public override void PostUpdateMiscEffects() {
+			//public override void PreUpdateBuffs() {
+			SpiritWalkLogic.UpdatePlayerFlagsPostMisc( this, this.IsSpiritWalking );
 		}
 
 		////

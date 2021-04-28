@@ -38,6 +38,8 @@ namespace SpiritWalking.Logic {
 				return false;
 			}
 
+			SpiritWalkLogic.EmulatedMana = player.statMana;
+
 			SpiritWalkLogic.ApplyManaDraw( player, manaCost );
 
 			return true;

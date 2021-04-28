@@ -33,8 +33,16 @@ namespace SpiritWalking.Logic {
 		////
 
 		public static void ApplyManaDraw( Player player, int manaCost ) {
-			player.statMana -= (int)manaCost;
+			//player.statMana -= (int)manaCost;
 
+			SpiritWalkLogic.EmulatedMana -= manaCost;
+
+			if( SpiritWalkLogic.EmulatedMana < 0 ) {
+				SpiritWalkLogic.EmulatedMana = 0;
+			} else if( SpiritWalkLogic.EmulatedMana > player.statManaMax2 ) {
+				SpiritWalkLogic.EmulatedMana = player.statManaMax2;
+			}
+			
 			if( manaCost > 1 ) {
 				Main.LocalPlayer.ManaEffect( -manaCost );
 			}

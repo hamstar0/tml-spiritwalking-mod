@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.GameInput;
@@ -33,8 +34,8 @@ namespace SpiritWalking {
 			SpiritWalkLogic.UpdatePlayerFlagsPostBuffs( this, this.IsSpiritWalking );
 		}
 
+		//public override void PreUpdateBuffs() {
 		public override void PostUpdateMiscEffects() {
-			//public override void PreUpdateBuffs() {
 			SpiritWalkLogic.UpdatePlayerFlagsPostMisc( this, this.IsSpiritWalking );
 		}
 
@@ -67,6 +68,15 @@ namespace SpiritWalking {
 
 		public override void FrameEffects() {
 			SpiritWalkFxLogic.UpdateFrameEffects( this, this.IsSpiritWalking );
+		}
+
+
+		////////////////
+
+		public override void ModifyScreenPosition() {
+			if( this.IsSpiritWalking ) {
+				Main.screenPosition = this.FlightProjectile.Center - new Vector2(Main.screenWidth/2, Main.screenHeight/2);
+			}
 		}
 	}
 }

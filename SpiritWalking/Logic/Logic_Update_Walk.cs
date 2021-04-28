@@ -48,12 +48,8 @@ namespace SpiritWalking.Logic {
 		}
 
 		private static void UpdatePlayerFlagsPostMiscForSpiritWalk( SpiritWalkingPlayer myplayer ) {
-			myplayer.player.nebulaLevelMana = 0;
-			myplayer.player.manaRegen = 0;
-			myplayer.player.manaRegenBonus = 0;
-			myplayer.player.manaRegenDelay = 2;
+			myplayer.player.manaRegenDelay = 60;
 			myplayer.player.manaRegenCount = 0;
-			myplayer.player.manaRegenBuff = false;
 		}
 
 		private static void UpdateItemHoldStyleForSpiritWalk( SpiritWalkingPlayer myplayer, Item item ) {

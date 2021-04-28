@@ -41,40 +41,5 @@ DebugHelpers.Print( "lerpAng", lerpAng.ToString() );
 //DebugHelpers.Print( "vel", this.projectile.velocity.ToString() );
 //DebugHelpers.Print( "dir", myplayer.FlightDirection.ToString() );
 		}
-
-
-		////////////////
-
-		public static void ApplySpiritWalkOpenAirFriction( Player player ) {
-			var config = SpiritWalkingConfig.Instance;
-
-			if( SpiritWalkingConfig.SpiritWalkUsesAnima ) {
-				float animaPercDraw = config.Get<float>( nameof(config.PerTickSpiritWalkAnimaPercentCostInOpenAir) );
-
-				SpiritWalkLogic.ApplyAnimaDraw( player, animaPercDraw );
-			} else {
-				if( SpiritWalkLogic.ManaCostDuration == 0 ) {
-					int manaDraw = config.Get<int>( nameof(config.PerRateSpiritWalkManaCostInOpenAir) );
-
-					SpiritWalkLogic.ApplyManaDraw( player, manaDraw );
-				}
-			}
-		}
-		
-		public static void ApplySpiritWalkCollisionFriction( Player player ) {
-			var config = SpiritWalkingConfig.Instance;
-
-			if( SpiritWalkingConfig.SpiritWalkUsesAnima ) {
-				float animaPercDraw = config.Get<float>( nameof(config.PerTickSpiritWalkFrictionAddedAnimaPercentCost) );
-
-				SpiritWalkLogic.ApplyAnimaDraw( player, animaPercDraw );
-			} else {
-				if( SpiritWalkLogic.ManaCostDuration == 0 ) {
-					int manaDraw = config.Get<int>( nameof(config.PerRateSpiritWalkFrictionAddedManaCost) );
-
-					SpiritWalkLogic.ApplyManaDraw( player, manaDraw );
-				}
-			}
-		}
 	}
 }

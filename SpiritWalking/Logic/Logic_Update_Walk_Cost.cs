@@ -4,6 +4,11 @@ using HamstarHelpers.Helpers.Debug;
 
 namespace SpiritWalking.Logic {
 	internal partial class SpiritWalkLogic {
+		private static int EmulatedMana = 0;
+
+
+		////////////////
+
 		public static int ManaCostDuration { get; private set; } = 0;
 
 
@@ -41,6 +46,8 @@ namespace SpiritWalking.Logic {
 
 				SpiritWalkLogic.ApplyManaDraw( player, manaCost );
 			}
+
+			player.statMana = SpiritWalkLogic.EmulatedMana;
 		}
 	}
 }

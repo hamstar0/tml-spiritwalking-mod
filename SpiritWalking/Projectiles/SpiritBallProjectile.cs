@@ -17,7 +17,9 @@ namespace SpiritWalking.Projectiles {
 		////////////////
 		
 		public override void SetStaticDefaults() {
-			Main.instance.LoadNPC( NPCID.DungeonSpirit );
+			if( Main.netMode != NetmodeID.Server && !Main.dedServ ) {
+				Main.instance.LoadNPC( NPCID.DungeonSpirit );
+			}
 		}
 
 		public override void SetDefaults() {

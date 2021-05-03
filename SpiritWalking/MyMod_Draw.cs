@@ -11,8 +11,11 @@ namespace SpiritWalking {
 	public partial class SpiritWalkingMod : Mod {
 		private void InitializeUI() {
 			Mod hudMod = ModLoader.GetMod( "HUDElementsLib" );
+
 			if( hudMod != null ) {
-				Func<string, bool> hook = (name) => name == "Anima Gauge";
+				Func<string, bool> hook = (name) => {
+					return name == "Anima Gauge" || !Main.LocalPlayer.GetModPlayer<SpiritWalkingPlayer>().IsSpiritWalking;
+				};
 
 				hudMod.Call( "AddWidgetVisibilityHook", hook );
 			}

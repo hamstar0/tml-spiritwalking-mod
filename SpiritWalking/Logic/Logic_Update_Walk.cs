@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.GameInput;
-using HamstarHelpers.Helpers.Debug;
-using HamstarHelpers.Services.Timers;
+using ModLibsCore.Libraries.Debug;
+using ModLibsCore.Services.Timers;
 
 
 namespace SpiritWalking.Logic {

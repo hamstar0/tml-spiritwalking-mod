@@ -1,7 +1,7 @@
 ﻿using System;
-using SpiritWalking.Logic;
 using Terraria;
 using Terraria.ModLoader;
+using SpiritWalking.Logic;
 
 
 namespace SpiritWalking {

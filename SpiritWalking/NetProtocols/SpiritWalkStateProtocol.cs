@@ -1,16 +1,22 @@
 ﻿using System;
 using Terraria;
-using HamstarHelpers.Services.Network.NetIO;
-using HamstarHelpers.Services.Network.NetIO.PayloadTypes;
+using Terraria.ID;
+using ModLibsCore.Classes.Errors;
+using ModLibsCore.Services.Network.SimplePacket;
 using SpiritWalking.Logic;
 
 
 namespace SpiritWalking {
 	[Serializable]
-	class SpiritWalkStateProtocol : NetIOBroadcastPayload {
+	class SpiritWalkStateProtocol : SimplePacketPayload {
 		public static void Broadcast( SpiritWalkingPlayer myplayer ) {
-			var protocol = new SpiritWalkStateProtocol( myplayer.player.whoAmI, myplayer.IsSpiritWalking );
-			NetIO.Broadcast( protocol );
+			if( Main.netMode != NetmodeID.MultiplayerClient ) {
+				throw new ModLibsException( "Not client" );
+			}
+
+			var packet = new SpiritWalkStateProtocol( myplayer.player.whoAmI, myplayer.IsSpiritWalking );
+
+			SimplePacket.SendToServer( packet );
 		}
 
 
@@ -34,13 +40,14 @@ namespace SpiritWalking {
 
 		////////////////
 
-		public override void ReceiveBroadcastOnClient() {
+		public override void ReceiveOnServer( int fromWho ) {
 			this.Receive();
+
+			SimplePacket.SendToClient( this, -1, fromWho );
 		}
 
-		public override bool ReceiveOnServerBeforeRebroadcast( int fromWho ) {
+		public override void ReceiveOnClient() {
 			this.Receive();
-			return true;
 		}
 
 		////

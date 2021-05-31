@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ID;
-using HamstarHelpers.Helpers.Debug;
-using HamstarHelpers.Services.OverlaySounds;
+using ModLibsCore.Libraries.Debug;
+using ModLibsAudio.Services.OverlaySounds;
 
 
 namespace SpiritWalking.Logic {

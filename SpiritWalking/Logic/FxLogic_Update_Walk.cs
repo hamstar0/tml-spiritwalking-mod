@@ -4,7 +4,7 @@ using Terraria.ID;
 using Terraria.DataStructures;
 using Terraria.Graphics.Effects;
 using Terraria.ModLoader;
-using HamstarHelpers.Helpers.Debug;
+using ModLibsCore.Libraries.Debug;
 
 
 namespace SpiritWalking.Logic {

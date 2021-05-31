@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Config;
-using HamstarHelpers.Classes.UI.ModConfig;
+using ModLibsCore.Classes.UI.ModConfig;
 
 
 namespace SpiritWalking {

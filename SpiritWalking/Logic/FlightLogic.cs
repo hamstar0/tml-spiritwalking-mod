@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using HamstarHelpers.Helpers.Debug;
+using ModLibsCore.Libraries.Debug;
 using SpiritWalking.Projectiles;
 
 
@@ -28,18 +28,18 @@ namespace SpiritWalking.Logic {
 			/*float currAng = MathHelper.ToDegrees( this.projectile.velocity.ToRotation() );	<- Something fucky is going on with this buy my hair brain can't parse
 			float goalAng = MathHelper.ToDegrees( myplayer.FlightDirection.ToRotation() );
 			float lerpAng = currAng.AngleLerp( goalAng, 0.1f );
-DebugHelpers.Print( "currAng", currAng.ToString() );
-DebugHelpers.Print( "goalAng", goalAng.ToString() );
-DebugHelpers.Print( "lerpAng", lerpAng.ToString() );
+DebugLibraries.Print( "currAng", currAng.ToString() );
+DebugLibraries.Print( "goalAng", goalAng.ToString() );
+DebugLibraries.Print( "lerpAng", lerpAng.ToString() );
 
 			float currLen = this.projectile.velocity.Length();
 			float goalLen = myplayer.FlightDirection.Length();
 
 			this.projectile.velocity = MathHelper.ToRadians(lerpAng).ToRotationVector2();
 			this.projectile.velocity *= currLen + ((goalLen - currLen) * accel);*/
-//DebugHelpers.Print( "pos", this.projectile.position.ToString() );
-//DebugHelpers.Print( "vel", this.projectile.velocity.ToString() );
-//DebugHelpers.Print( "dir", myplayer.FlightDirection.ToString() );
+//DebugLibraries.Print( "pos", this.projectile.position.ToString() );
+//DebugLibraries.Print( "vel", this.projectile.velocity.ToString() );
+//DebugLibraries.Print( "dir", myplayer.FlightDirection.ToString() );
 		}
 	}
 }

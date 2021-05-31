@@ -1,10 +1,8 @@
 using System;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.UI;
 using Terraria.ModLoader;
-using HamstarHelpers.Services.UI.LayerDisable;
 
 
 namespace SpiritWalking {

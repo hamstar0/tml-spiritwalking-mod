@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.GameInput;
 using Terraria.ModLoader;
-using HamstarHelpers.Helpers.Debug;
+using ModLibsCore.Libraries.Debug;
 
 
 namespace SpiritWalking.Logic {
@@ -38,7 +38,7 @@ namespace SpiritWalking.Logic {
 		////////////////
 
 		public static void Update( SpiritWalkingPlayer myplayer, bool isSpiritWalking ) {
-//DebugHelpers.Print( "walk?", ""+isSpiritWalking+", "+myplayer.player.width+", "+myplayer.player.height );
+//DebugLibraries.Print( "walk?", ""+isSpiritWalking+", "+myplayer.player.width+", "+myplayer.player.height );
 			if( !isSpiritWalking ) {
 				return;
 			}

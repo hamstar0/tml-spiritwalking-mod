@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
-using HamstarHelpers.Helpers.Debug;
+using ModLibsCore.Libraries.Debug;
 
 
 namespace SpiritWalking.Logic {

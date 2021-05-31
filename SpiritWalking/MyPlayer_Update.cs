@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.GameInput;
 using Terraria.ModLoader;
-using HamstarHelpers.Helpers.Debug;
+using ModLibsCore.Libraries.Debug;
 using SpiritWalking.Logic;
 
 

@@ -1,6 +1,6 @@
 using Terraria;
-using HamstarHelpers.Helpers.Debug;
-using HamstarHelpers.Helpers.World;
+using ModLibsCore.Libraries.Debug;
+using ModLibsGeneral.Libraries.World;
 
 
 namespace SpiritWalking.Logic {
@@ -14,7 +14,7 @@ namespace SpiritWalking.Logic {
 			}
 
 			Tile tile = Main.tile[tileX, tileY];
-			return tile.wall == 0 && tileY <= WorldHelpers.SurfaceLayerBottomTileY;
+			return tile.wall == 0 && tileY <= WorldLibraries.SurfaceLayerBottomTileY;
 		}
 
 

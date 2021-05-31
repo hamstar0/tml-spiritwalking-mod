@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Terraria;
-using HamstarHelpers.Helpers.Debug;
-using HamstarHelpers.Helpers.World;
+using ModLibsCore.Libraries.Debug;
+using ModLibsGeneral.Libraries.World;
 
 
 namespace SpiritWalking.Logic {
@@ -58,7 +58,7 @@ namespace SpiritWalking.Logic {
 			if( tile.active() == true ) {
 				return (false, false);
 			}
-			if( tile.wall == 0 && tileY <= WorldHelpers.SurfaceLayerBottomTileY ) {
+			if( tile.wall == 0 && tileY <= WorldLibraries.SurfaceLayerBottomTileY ) {
 				return (false, false);
 			}
 

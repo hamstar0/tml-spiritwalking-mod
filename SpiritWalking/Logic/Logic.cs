@@ -14,7 +14,7 @@ namespace SpiritWalking.Logic {
 			}
 
 			Tile tile = Main.tile[tileX, tileY];
-			return tile.wall == 0 && tileY <= WorldLibraries.SurfaceLayerBottomTileY;
+			return tile.wall == 0 && tileY <= WorldLocationLibraries.SurfaceLayerBottomTileY;
 		}
 
 

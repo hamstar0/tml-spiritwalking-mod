@@ -58,7 +58,7 @@ namespace SpiritWalking.Logic {
 			if( tile.active() == true ) {
 				return (false, false);
 			}
-			if( tile.wall == 0 && tileY <= WorldLibraries.SurfaceLayerBottomTileY ) {
+			if( tile.wall == 0 && tileY <= WorldLocationLibraries.SurfaceLayerBottomTileY ) {
 				return (false, false);
 			}
 

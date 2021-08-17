@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ID;
 using ModLibsCore.Libraries.Debug;
 using SpiritWalking.Projectiles;
 
@@ -21,7 +20,14 @@ namespace SpiritWalking.Logic {
 				return Vector2.Lerp( proj.velocity, default, chasePerc );
 			}
 
-			Vector2 vel = myplayer.IntendedFlightVelocity * myplayer.CurrentFlightSpeedScale;
+			Vector2 intendedVel = myplayer.IntendedFlightVelocity;
+			float currSpeedScale = myplayer.CurrentFlightSpeedScale;
+
+			if( !SpiritWalkingAPI.RunSpiritBallVelCalcHooks(proj, chasePerc, ref intendedVel, ref currSpeedScale) ) {
+				return null;
+			}
+
+			Vector2 vel = intendedVel * currSpeedScale;
 
 			return Vector2.Lerp( proj.velocity, vel, chasePerc );
 

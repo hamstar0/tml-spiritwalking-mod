@@ -1,6 +1,6 @@
 displayName = Spirit Walking
 author = hamstar
-version = 1.1.0
+version = 1.1.1
 modReferences = ModLibsCore@1.0.0, ModLibsGeneral@1.0.0, ModLibsUI@1.0.0, ModLibsAudio@1.0.0
 weakReferences = Necrotis@1.11.1
 buildIgnore = *.csproj, *.user, *.bat, obj\*, bin\*, .vs\*, .git\*

@@ -48,7 +48,7 @@ namespace SpiritWalking.Logic {
 
 		////////////////
 
-		public static void ActivateIf( Player player, bool sync ) {
+		public static void ActivateIf( Player player, bool syncIfClient ) {
 			var config = SpiritWalkingConfig.Instance;
 			var myplayer = player.GetModPlayer<SpiritWalkingPlayer>();
 
@@ -84,7 +84,7 @@ namespace SpiritWalking.Logic {
 
 			//
 
-			if( sync ) {
+			if( syncIfClient ) {
 				if( Main.netMode == NetmodeID.MultiplayerClient ) {
 					SpiritWalkStateProtocol.Broadcast( myplayer );
 				}
@@ -92,7 +92,7 @@ namespace SpiritWalking.Logic {
 		}
 
 
-		public static void DeactivateIf( Player player, bool sync ) {
+		public static void DeactivateIf( Player player, bool syncIfClient ) {
 			var myplayer = player.GetModPlayer<SpiritWalkingPlayer>();
 			if( !myplayer.IsSpiritWalking ) {
 				return;
@@ -116,7 +116,7 @@ namespace SpiritWalking.Logic {
 
 			//
 
-			if( sync ) {
+			if( syncIfClient ) {
 				if( Main.netMode == NetmodeID.MultiplayerClient ) {
 					SpiritWalkStateProtocol.Broadcast( myplayer );
 				}

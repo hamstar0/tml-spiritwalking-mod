@@ -41,6 +41,18 @@ namespace SpiritWalking.Projectiles {
 
 		////////////////
 
+		public override void Kill( int timeLeft ) {
+			if( this.projectile.npcProj ) {
+				return;
+			}
+
+			Player plr = Main.player[this.projectile.owner];
+			SpiritWalkLogic.DeactivateIf( plr, false );
+		}
+
+
+		////////////////
+
 		public override void AI() {
 			if( this.projectile.npcProj ) {
 				return;

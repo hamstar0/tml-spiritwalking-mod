@@ -25,7 +25,7 @@ namespace SpiritWalking {
 
 		////////////////
 
-		public static Vector2? PredictSpiritBallPosition(
+		public static Vector2 PredictSpiritBallPosition(
 					Vector2 currentVelocity,
 					Vector2 intendedVelocity,
 					float currentFlightSpeedScale,

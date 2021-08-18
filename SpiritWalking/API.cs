@@ -25,6 +25,19 @@ namespace SpiritWalking {
 
 		////////////////
 
+		public static Vector2? PredictSpiritBallPosition(
+					Vector2 currentVelocity,
+					Vector2 intendedVelocity,
+					float currentFlightSpeedScale,
+					float lerpPercent ) {
+			Vector2 vel = intendedVelocity * currentFlightSpeedScale;
+
+			return Vector2.Lerp( currentVelocity, vel, lerpPercent );
+		}
+
+
+		////////////////
+
 		internal static bool RunSpiritBallVelCalcHooks(
 					Projectile projectile,
 					float chasePerc,

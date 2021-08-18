@@ -27,25 +27,7 @@ namespace SpiritWalking.Logic {
 				return null;
 			}
 
-			Vector2 vel = intendedVel * currSpeedScale;
-
-			return Vector2.Lerp( proj.velocity, vel, chasePerc );
-
-			/*float currAng = MathHelper.ToDegrees( this.projectile.velocity.ToRotation() );	<- Something fucky is going on with this buy my hair brain can't parse
-			float goalAng = MathHelper.ToDegrees( myplayer.FlightDirection.ToRotation() );
-			float lerpAng = currAng.AngleLerp( goalAng, 0.1f );
-DebugLibraries.Print( "currAng", currAng.ToString() );
-DebugLibraries.Print( "goalAng", goalAng.ToString() );
-DebugLibraries.Print( "lerpAng", lerpAng.ToString() );
-
-			float currLen = this.projectile.velocity.Length();
-			float goalLen = myplayer.FlightDirection.Length();
-
-			this.projectile.velocity = MathHelper.ToRadians(lerpAng).ToRotationVector2();
-			this.projectile.velocity *= currLen + ((goalLen - currLen) * accel);*/
-//DebugLibraries.Print( "pos", this.projectile.position.ToString() );
-//DebugLibraries.Print( "vel", this.projectile.velocity.ToString() );
-//DebugLibraries.Print( "dir", myplayer.FlightDirection.ToString() );
+			return SpiritWalkingAPI.PredictSpiritBallPosition( proj.velocity, intendedVel, currSpeedScale, chasePerc );
 		}
 	}
 }

@@ -82,37 +82,7 @@ namespace SpiritWalking.Logic {
 
 			myplayer.IsSpiritWalking = true;
 
-			//
-
-			if( syncIfClient ) {
-				if( Main.netMode == NetmodeID.MultiplayerClient ) {
-					SpiritWalkStateProtocol.Broadcast( myplayer );
-				}
-			}
-		}
-
-
-		public static void DeactivateIf( Player player, bool syncIfClient ) {
-			var myplayer = player.GetModPlayer<SpiritWalkingPlayer>();
-			if( !myplayer.IsSpiritWalking ) {
-				return;
-			}
-
-			//
-
-			SpiritWalkLogic.DeactivatePlayerForm( player );
-
-			SpiritWalkFlightLogic.DeactivateFlightBehavior( player );
-
-			SpiritWalkFxLogic.DeactivationFx( player );
-
-			//
-
-			SpiritWalkPelletsLogic.FlushCache();
-
-			//
-
-			myplayer.IsSpiritWalking = false;
+			SpiritWalkingAPI.RunSpiritWalkActivationHooks( player, true );
 
 			//
 
@@ -143,12 +113,6 @@ namespace SpiritWalking.Logic {
 
 			player.height = 0;
 			player.width = 0;
-		}
-
-
-		private static void DeactivatePlayerForm( Player player ) {
-			player.height = SpiritWalkLogic.PreWalkPlayerHeight;
-			player.width = SpiritWalkLogic.PreWalkPlayerWidth;
 		}
 	}
 }

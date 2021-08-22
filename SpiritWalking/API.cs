@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -7,6 +8,8 @@ using ModLibsCore.Classes.Loadable;
 
 
 namespace SpiritWalking {
+	public delegate void SpiritWalkActivationHook( Player player, bool isActivating );
+
 	public delegate bool SpiritBallVelocityCalculationHook(
 			Projectile projectile,
 			float targetLerpToPercent,
@@ -17,14 +20,6 @@ namespace SpiritWalking {
 
 
 	public class SpiritWalkingAPI : ILoadable {
-		public static void AddSpiritBallVelocityCalculationHook( SpiritBallVelocityCalculationHook hook ) {
-			var api = ModContent.GetInstance<SpiritWalkingAPI>();
-			api.BallVelCalcHooks.Add( hook );
-		}
-
-
-		////////////////
-
 		public static Vector2 PredictSpiritBallPosition(
 					Vector2 currentVelocity,
 					Vector2 intendedVelocity,
@@ -36,6 +31,20 @@ namespace SpiritWalking {
 		}
 
 
+		////////////////
+
+		public static void AddSpiritWalkActivationHook( SpiritWalkActivationHook hook ) {
+			var api = ModContent.GetInstance<SpiritWalkingAPI>();
+			api.WalkActivationHooks.Add( hook );
+		}
+
+
+		public static void AddSpiritBallVelocityCalculationHook( SpiritBallVelocityCalculationHook hook ) {
+			var api = ModContent.GetInstance<SpiritWalkingAPI>();
+			api.BallVelCalcHooks.Add( hook );
+		}
+
+		
 		////////////////
 
 		internal static bool RunSpiritBallVelCalcHooks(
@@ -53,9 +62,21 @@ namespace SpiritWalking {
 			return true;
 		}
 
+		internal static bool RunSpiritWalkActivationHooks( Player player, bool isActivating ) {
+			var api = ModContent.GetInstance<SpiritWalkingAPI>();
+
+			foreach( SpiritWalkActivationHook hook in api.WalkActivationHooks ) {
+				hook.Invoke( player, isActivating );
+			}
+			return true;
+		}
+
 
 
 		////////////////
+
+		private ISet<SpiritWalkActivationHook> WalkActivationHooks = new HashSet<SpiritWalkActivationHook>();
+		
 
 		private ISet<SpiritBallVelocityCalculationHook> BallVelCalcHooks = new HashSet<SpiritBallVelocityCalculationHook>();
 

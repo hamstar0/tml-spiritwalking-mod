@@ -1,7 +1,7 @@
 displayName = Spirit Walking
 author = hamstar
-version = 1.1.1
-modReferences = ModLibsCore@1.2.0, ModLibsGeneral@1.2.0, ModLibsUI@1.0.0, ModLibsAudio@1.0.0
-weakReferences = Necrotis@1.11.1
+version = 1.1.2
+modReferences = ModLibsAudio@1.0.0, ModLibsCore@1.2.0, ModLibsGeneral@1.2.0, ModLibsUI@1.0.0
+weakReferences = Messages@1.1.0, Necrotis@1.11.1
 buildIgnore = *.csproj, *.user, *.bat, obj\*, bin\*, .vs\*, .git\*
 homepage = https://github.com/hamstar0/tml-spiritwalking-mod

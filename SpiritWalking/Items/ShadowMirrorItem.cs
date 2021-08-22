@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using SpiritWalking.Logic;
-using Microsoft.Xna.Framework;
+
 
 namespace SpiritWalking.Items {
 	public class ShadowMirrorItem : ModItem {
@@ -80,6 +81,17 @@ namespace SpiritWalking.Items {
 
 		////////////////
 
+		public override void AddRecipes() {
+			int shadowMirrorType = ModContent.ItemType<ShadowMirrorItem>();
+			var recipe1 = new ShadowMirrorRecipe( ItemID.MagicMirror, shadowMirrorType, true );
+			var recipe2 = new ShadowMirrorRecipe( shadowMirrorType, ItemID.MagicMirror, false );
+			recipe1.AddRecipe();
+			recipe2.AddRecipe();
+		}
+
+
+		////////////////
+
 		public override void HoldItem( Player player ) {
 			if( player.itemAnimation <= 0 ) {
 				return;
@@ -114,40 +126,37 @@ namespace SpiritWalking.Items {
 
 		////////////////
 
-		public override void AddRecipes() {
-			int shadowMirrorType = ModContent.ItemType<ShadowMirrorItem>();
-			var recipe1 = new ShadowMirrorRecipe( ItemID.MagicMirror, shadowMirrorType, true );
-			var recipe2 = new ShadowMirrorRecipe( shadowMirrorType, ItemID.MagicMirror, false );
-			recipe1.AddRecipe();
-			recipe2.AddRecipe();
-		}
-	}
+		 private static bool PickupMessageShown = false;
 
+		public override void UpdateInventory( Player player ) {
+			if( !ShadowMirrorItem.PickupMessageShown ) {
+				ShadowMirrorItem.PickupMessageShown = true;
 
-
-
-	class ShadowMirrorRecipe : ModRecipe {
-		public ShadowMirrorRecipe( int mirror1ItemType, int mirror2ItemType, bool isShadowMirror )
-					: base( SpiritWalkingMod.Instance ) {
-			this.AddIngredient( mirror1ItemType, 1 );
-			if( isShadowMirror ) {
-				this.AddIngredient( ItemID.SoulofNight, 1 );
-			} else {
-				this.AddIngredient( ItemID.SoulofLight, 1 );
-			}
-
-			this.AddTile( TileID.WorkBenches );
-
-			if( isShadowMirror ) {
-				this.SetResult( mirror2ItemType );
-			} else {
-				this.SetResult( ItemID.MagicMirror );
+				if( ModLoader.GetMod("Messages") != null ) {
+					ShadowMirrorItem.DisplayPickupMessage_WeakRef_Messages();
+				}
 			}
 		}
 
+		////
 
-		public override bool RecipeAvailable() {
-			return SpiritWalkingConfig.Instance.ShadowMirrorRecipeEnabled;
+		private static void DisplayPickupMessage_WeakRef_Messages() {
+			Messages.MessagesAPI.AddMessage(
+				title: "Spirit Walking",
+				description: "When the Shadow Mirror is used (see tooltips for requirements), you will enter a"
+					+" state known as 'spirit walking'. This state lets you travel around as if you were a spirit:"
+					+" Nothing can hurt you, and you can fly in any direction you please. Your time in this mode is"
+					+" limited, however. While 'walking', you may see blue and red orbs lying around. Blue orbs will"
+					+" increase your walk duration on pickup, but red orbs will shorten it."
+					+"\n \nWhile walking, you become much smaller than usual, and the world may appear differently."
+					+" Activating 'spirit dash' will end your walk, but give you a short jump that can be used to"
+					+" get past obstacles.",
+				modOfOrigin: SpiritWalkingMod.Instance,
+				alertPlayer: true,
+				isImportant: false,
+				parentMessage: Messages.MessagesAPI.GameInfoCategoryMsg,
+				id: "SpirtWalking_Overview"
+			);
 		}
 	}
 }

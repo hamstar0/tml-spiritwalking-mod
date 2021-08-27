@@ -141,6 +141,8 @@ namespace SpiritWalking.Items {
 		////
 
 		private static void DisplayPickupMessage_WeakRef_Messages() {
+			string id = "SpirtWalking_Overview";
+
 			Messages.MessagesAPI.AddMessage(
 				title: "Spirit Walking",
 				description: "When the Shadow Mirror is used (see tooltips for requirements), you will enter a"
@@ -152,10 +154,10 @@ namespace SpiritWalking.Items {
 					+" Activating 'spirit dash' will end your walk, but give you a short jump that can be used to"
 					+" get past obstacles.",
 				modOfOrigin: SpiritWalkingMod.Instance,
-				alertPlayer: true,
+				alertPlayer: Messages.MessagesAPI.IsUnread(id),
 				isImportant: false,
 				parentMessage: Messages.MessagesAPI.GameInfoCategoryMsg,
-				id: "SpirtWalking_Overview"
+				id: id
 			);
 		}
 	}

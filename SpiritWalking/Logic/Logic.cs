@@ -68,7 +68,7 @@ namespace SpiritWalking.Logic {
 		public static void ApplyAnimaDraw( Player player, float energyDraw ) {
 			float energyAsPercent = energyDraw / 100f;
 
-			Necrotis.NecrotisAPI.SubtractAnimaPercentFromPlayer( player, energyAsPercent, false );
+			Necrotis.NecrotisAPI.SubtractAnimaPercentFromPlayer( player, energyAsPercent, false, "Spirit Walking" );
 		}
 	}
 }

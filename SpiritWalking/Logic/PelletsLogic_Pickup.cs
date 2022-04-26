@@ -87,7 +87,7 @@ namespace SpiritWalking.Logic {
 		private static void ApplyPelletGain_Necrotis( float largePercentGain ) {
 			float percGain = largePercentGain / 100f;
 
-			Necrotis.NecrotisAPI.SubtractAnimaPercentFromPlayer( Main.LocalPlayer, -percGain, false );
+			Necrotis.NecrotisAPI.SubtractAnimaPercentFromPlayer( Main.LocalPlayer, -percGain, false, "Spirit Walking" );
 		}
 	}
 }
